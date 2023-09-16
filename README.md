@@ -1,8 +1,8 @@
-# `<name of application here>`
+# `AirDnD`
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![Getting Started](./airDndDatabaseSchema.png)
 
 ## API Documentation
 
