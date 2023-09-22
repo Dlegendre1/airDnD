@@ -1,24 +1,21 @@
 'use strict';
-let options = {};
-if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
-}
+
 const { QueryInterface } = require('sequelize');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn('users', 'firstName', {
+    await queryInterface.addColumn('Users', 'firstName', {
       type: Sequelize.STRING
     });
 
-    await queryInterface.addColumn('users', 'lastName', {
+    await queryInterface.addColumn('Users', 'lastName', {
       type: Sequelize.STRING
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn('users', 'firstName');
-    await queryInterface.removeColumn('users', 'lastName');
+    await queryInterface.removeColumn('Users', 'firstName');
+    await queryInterface.removeColumn('Users', 'lastName');
   }
 };
