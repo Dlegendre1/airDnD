@@ -2,6 +2,7 @@
 const { QueryInterface } = require('sequelize');
 
 let options = {};
+options.tableName = 'Users';
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
@@ -9,17 +10,17 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn(options, 'Users', 'firstName', {
+    await queryInterface.addColumn(options, 'firstName', {
       type: Sequelize.STRING
     }),
 
-      await queryInterface.addColumn(options, 'Users', 'lastName', {
+      await queryInterface.addColumn(options, 'lastName', {
         type: Sequelize.STRING
       });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.removeColumn(options, 'Users', 'firstName');
-    await queryInterface.removeColumn(options, 'Users', 'lastName');
+    await queryInterface.removeColumn(options, 'firstName');
+    await queryInterface.removeColumn(options, 'lastName');
   }
 };
