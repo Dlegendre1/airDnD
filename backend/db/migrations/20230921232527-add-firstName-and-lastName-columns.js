@@ -5,11 +5,11 @@ const { QueryInterface } = require('sequelize');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.addColumn('users', 'firstName', {
+    await queryInterface.addColumn('user', 'firstName', {
       type: Sequelize.STRING
     });
 
-    await queryInterface.addColumn('users', 'lastName', {
+    await queryInterface.addColumn('user', 'lastName', {
       type: Sequelize.STRING
     });
   },
