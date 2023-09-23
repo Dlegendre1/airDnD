@@ -2,7 +2,8 @@
 
 ## Database Schema Design
 
-![airDndDatabaseSchema](https://github.com/Dlegendre1/airDnD/assets/122412456/f2d6292e-9135-42f5-9f82-3c8043ad3c22)
+![airDndDatabaseSchema](https://github.com/Dlegendre1/airDnD/assets/122412456/583e942f-6f7d-4832-a0ad-589cb9b025af)
+
 
 
 ## API Documentation
