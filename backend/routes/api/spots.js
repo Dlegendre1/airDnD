@@ -36,7 +36,31 @@ router.get(
     }
 );
 
+router.post(
+    '/',
+    async (req, res, next) => {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        const ownerId = req.user.id;
+        const spot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
 
+        const safeSpot = {
+            ownerId: ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat,
+            lng: spot.lng,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price
+        };
+
+        return res.json({
+            spot: safeSpot
+        });
+    }
+);
 
 
 
