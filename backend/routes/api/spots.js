@@ -92,6 +92,23 @@ router.post(
     }
 );
 
+//Get details of a spot from an id
+router.get(
+    '/:spotId',
+    async (req, res, next) => {
+        const spotId = req.params.spotId;
+        const spot = await Spot.findByPk(spotId);
+
+        if (spot) {
+            return res.json({ spot });
+        } else {
+            res.json({ "message": "Spot couldn't be found" });
+
+        }
+
+    }
+);
+
 // //Add image to spot based on spot id
 // router.post(
 //     '/:spotId/images', requireAuth,
