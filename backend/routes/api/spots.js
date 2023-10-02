@@ -102,23 +102,34 @@ router.get(
         if (spot) {
             return res.json({ spot });
         } else {
-            res.json({ "message": "Spot couldn't be found" });
+            return res.json({ "message": "Spot couldn't be found" });
 
         }
 
     }
 );
 
-// //Add image to spot based on spot id
-// router.post(
-//     '/:spotId/images', requireAuth,
-//     async (req, res, next) => {
-//         const { url, preview } = req.body;
-//         const spotImage = await SpotImage.create({ url, preview });
-//         //STILL HAVE WORK TO DO
+//Add image to spot based on spot id
+router.post(
+    '/:spotId/images',
+    async (req, res, next) => {
+        const spotId = req.params.spotId;
+        const { url, preview } = req.body;
+        const spot = await Spot.findByPk(spotId);
+        const spotImage = await SpotImage.create({ url, preview });
 
-//     }
-// );
+        await spotImage.setSpot(spot);
+        if (await Spot.findByPk(spotId)) {
+            return res.json({
+                id: spotImage.id,
+                url: spotImage.url,
+                preview: spotImage.preview
+            });
+        } else {
+            return res.json({ "message": "Spot couldn't be found" });
+        }
+    }
+);
 
 
 
