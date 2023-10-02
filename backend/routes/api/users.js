@@ -1,4 +1,5 @@
 const express = require('express');
+const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -8,10 +9,10 @@ const { User } = require('../../db/models');
 const router = express.Router();
 
 const validateSignup = [
-    check('email')
-        .exists({ checkFalsy: true })
-        .isEmail()
-        .withMessage('Please provide a valid email.'),
+    // check('email')
+    //     .exists({ checkFalsy: true })
+    //     .isEmail()
+    //     .withMessage('Please provide a valid email.'),
     check('username')
         .exists({ checkFalsy: true })
         .isLength({ min: 4 })
@@ -31,9 +32,30 @@ const validateSignup = [
 router.post(
     '/',
     validateSignup,
-    async (req, res) => {
+    async (req, res, next) => {
         const { email, password, username, firstName, lastName } = req.body;
         const hashedPassword = bcrypt.hashSync(password);
+
+        const otherUserEmail = await User.findOne({ where: { email } });
+        const otherUsername = await User.findOne({ where: { username } });
+
+        if (otherUsername) {
+            const err = new Error('User already exists');
+            err.status = 500;
+            err.title = 'User already exists';
+            err.errors = { "email": 'User with that email already exists' };
+            return next(err);
+        }
+
+        if (otherUserEmail) {
+            const err = new Error('User already exists');
+            err.status = 500;
+            err.title = 'User already exists';
+            err.errors = { "username": 'User with that username already exists' };
+            return next(err);
+        }
+
+
         const user = await User.create({ email, username, hashedPassword, firstName, lastName });
 
         const safeUser = {

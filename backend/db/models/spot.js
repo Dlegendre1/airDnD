@@ -52,6 +52,12 @@ module.exports = (sequelize, DataTypes) => {
     },
     price: {
       type: DataTypes.DECIMAL
+    },
+    avgRating: {
+      type: DataTypes.DECIMAL
+    },
+    previewImage: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,

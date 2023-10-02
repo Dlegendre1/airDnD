@@ -20,7 +20,9 @@ module.exports = {
         lng: 123.123,
         name: 'Dynasty',
         description: 'Buffet',
-        price: 14.99
+        price: 14.99,
+        avgRating: 4.3,
+        previewImage: "asdf.com"
       },
       {
         ownerId: 2,
@@ -32,7 +34,9 @@ module.exports = {
         lng: 1321.32,
         name: 'Guildies',
         description: 'Vampire house',
-        price: 6.99
+        price: 6.99,
+        avgRating: 4.3,
+        previewImage: "asdfg.com"
       },
       {
         ownerId: 3,
@@ -44,7 +48,9 @@ module.exports = {
         lng: 456.654,
         name: 'Jimbo',
         description: 'The crizzy',
-        price: 3.50
+        price: 3.50,
+        avgRating: 4.3,
+        previewImage: "asdfgh.com"
       }
     ], { validate: true });
   },
