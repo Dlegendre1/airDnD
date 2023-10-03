@@ -54,7 +54,21 @@ router.post(
 router.put(
     '/:reviewId',
     async (req, res, next) => {
+        const userId = req.user.id;
+        const reviewId = req.params.reviewId;
+        const { review, stars } = req.body;
 
+        const existingReview = await Review.findByPk(reviewId);
+        if (existingReview.userId === userId) {
+            const safeReview = {
+                review: review,
+                stars: stars
+            };
+            await existingReview.update(safeReview);
+            return res.json({ id: existingReview.id, userId: existingReview.userId, spotId: existingReview.spotId, ...safeReview, createdAt: existingReview.createdAt, updatedAt: existingReview.updatedAt });
+        } else {
+            return res.json({ "message": "No auth" });
+        }
     }
 );
 

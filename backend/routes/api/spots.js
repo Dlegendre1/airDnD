@@ -144,7 +144,6 @@ router.put(
         const spotId = req.params.spotId;
         const { address, city, state, country, lat, lng, name, description, price } = req.body;
         const spot = await Spot.findByPk(spotId);
-
         if (spot.ownerId === userId) {
             const safeSpot = {
                 address: address,
@@ -157,7 +156,8 @@ router.put(
                 description: description,
                 price: price
             };
-            return res.json({ ...safeSpot });
+            await spot.update(safeSpot);
+            return res.json({ id: spot.id, ownerId: spot.ownerId, ...safeSpot, createdAt: spot.createdAt, updatedAt: spot.updatedAt });
         } else {
             res.status(404).json({ "message": "Spot couldn't be found" });
         }
