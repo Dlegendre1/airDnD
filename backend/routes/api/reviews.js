@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, SpotImage } = require('../../db/models');
+const { User, Spot, SpotImage, Review } = require('../../db/models');
 
 const router = express.Router();
 
@@ -13,7 +13,22 @@ const router = express.Router();
 router.get(
     '/current',
     async (req, res, next) => {
+        const userId = req.user.id;
+        const userReviews = await Review.findAll({ where: { userId: userId } });
 
+        const reviews = userReviews.map(review => ({
+            id: review.id,
+            userId: review.userId,
+            spotId: review.spotId,
+            review: review.review,
+            stars: review.stars,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+            User: review.User,
+            Spot: review.Spot,
+            ReviewImages: review.ReviewImages
+        }));
+        res.json({ Reviews: reviews });
     }
 );
 
