@@ -5,6 +5,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage } = require('../../db/models');
+const { JsonWebTokenError } = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -119,6 +120,7 @@ router.post(
         const spotImage = await SpotImage.create({ url, preview });
 
         await spotImage.setSpot(spot);
+
         if (await Spot.findByPk(spotId)) {
             return res.json({
                 id: spotImage.id,
@@ -135,7 +137,27 @@ router.post(
 router.put(
     '/:spotId',
     async (req, res, next) => {
+        const userId = req.user.id;
+        const spotId = req.params.spotId;
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        const spot = await Spot.findByPk(spotId);
 
+        if (spot.ownerId === userId) {
+            const safeSpot = {
+                address: address,
+                city: city,
+                state: state,
+                country: country,
+                lat: lat,
+                lng: lng,
+                name: name,
+                description: description,
+                price: price
+            };
+            return res.json({ ...safeSpot });
+        } else {
+            res.status(404).json({ "message": "Spot couldn't be found" });
+        }
     }
 );
 
@@ -143,6 +165,7 @@ router.put(
 router.delete(
     '/:spotId',
     async (req, res, next) => {
+        
 
     }
 );
