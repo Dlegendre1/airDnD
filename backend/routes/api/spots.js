@@ -184,7 +184,22 @@ router.delete(
 router.get(
     '/:spotId/reviews',
     async (req, res, next) => {
+        const spotId = req.params.spotId;
+        const spotReviews = await Review.findAll({ where: { spotId: spotId } });
 
+        const reviews = spotReviews.map(review => ({
+            id: review.id,
+            userId: review.userId,
+            spotId: spotId,
+            review: review.review,
+            stars: review.stars,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+            User: review.User,
+            ReviewImages: review.ReviewImages,
+        }));
+
+        res.json({ Reviews: reviews });
     }
 );
 
