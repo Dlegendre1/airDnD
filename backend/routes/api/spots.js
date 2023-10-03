@@ -131,6 +131,55 @@ router.post(
     }
 );
 
+//Edit a spot
+router.put(
+    '/:spotId',
+    async (req, res, next) => {
+
+    }
+);
+
+//Delete a spot
+router.delete(
+    '/:spotId',
+    async (req, res, next) => {
+
+    }
+);
+
+//Get all reviews by spotId
+router.get(
+    '/:spotId/reviews',
+    async (req, res, next) => {
+
+    }
+);
+
+//Create review for spot based on spotId
+router.post(
+    '/:spotId/reviews',
+    async (req, res, next) => {
+
+    }
+);
+
+//Get all bookings for a spot based on the spot's id
+router.get(
+    '/:spotId/bookings',
+    async (req, res, next) => {
+
+    }
+);
+
+//Create a booking from a spot based on spotId
+router.post(
+    '/:spotId/bookings',
+    async (req, res, next) => {
+
+    }
+);
+
+
 
 
 
