@@ -12,7 +12,21 @@ const router = express.Router();
 router.get(
     '/current',
     async (req, res, next) => {
+        const userId = req.user.id;
+        const userBookings = await Booking.findAll({ where: { userId: userId } });
 
+        const bookings = userBookings.map(booking => ({
+            id: booking.id,
+            spotId: booking.spotId,
+            Spot: booking.Spot,
+            userId: booking.userId,
+            startDate: booking.startDate,
+            endDate: booking.endDate,
+            createdAt: booking.createdAt,
+            updatedAt: booking.updatedAt,
+        }));
+
+        res.json({ Bookings: bookings });
     }
 );
 
