@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
+const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { JsonWebTokenError } = require('jsonwebtoken');
 
 const router = express.Router();
@@ -230,7 +230,21 @@ router.post(
 router.get(
     '/:spotId/bookings',
     async (req, res, next) => {
+        const spotId = req.params.spotId;
+        const spotBookings = await Booking.findAll({ where: { spotId: spotId } });
 
+        const bookings = spotBookings.map(booking => ({
+            User: booking.User,
+            id: booking.id,
+            spotId: booking.spotId,
+            userId: booking.userId,
+            startDate: booking.startDate,
+            endDate: booking.endDate,
+            createdAt: booking.createdAt,
+            updatedAt: booking.updatedAt
+        }));
+
+        res.json({ Bookings: bookings });
     }
 );
 
