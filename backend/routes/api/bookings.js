@@ -34,6 +34,19 @@ router.get(
 router.put(
     '/:bookingId',
     async (req, res, next) => {
+        const userId = req.user.id;
+        const bookingId = req.params.bookingId;
+        const { startDate, endDate } = req.body;
+        const booking = await Booking.findByPk(bookingId);
+        if (booking.userId === userId) {
+            const safeBooking = {
+                startDate: startDate,
+                endDate: endDate
+            };
+            await booking.update(safeBooking);
+            return res.json({ id: booking.id, spotId: booking.spotId, userId: booking.userId, startDate: booking.startDate, endDate: booking.endDate });
+        }
+        return res.json({ "message": "Booking couldn't be found" });
 
     }
 );

@@ -261,7 +261,7 @@ router.post(
             return res.json({ "message": "You own this property" });
         }
         if (spot) {
-            const spotBooking = await Booking.create({ startDate, endDate });
+            const spotBooking = await Booking.create({ userId, startDate, endDate });
             await spotBooking.setSpot(spot);
 
             return res.json({
