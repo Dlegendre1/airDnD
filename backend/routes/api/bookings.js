@@ -55,7 +55,16 @@ router.put(
 router.delete(
     '/:bookingId',
     async (req, res, next) => {
+        const userId = req.user.id;
+        const bookingId = req.params.bookingId;
 
+        const booking = await Booking.findByPk(bookingId);
+        if (!booking) {
+            return res.status(404).json({ "message": "Booking couldn't be found" });
+        }
+
+        await booking.destroy();
+        return res.json({ "message": "Successfully deleted" });
     }
 );
 
