@@ -252,7 +252,29 @@ router.get(
 router.post(
     '/:spotId/bookings',
     async (req, res, next) => {
+        const spotId = req.params.spotId;
+        const userId = req.user.id;
+        const { startDate, endDate } = req.body;
+        const spot = await Spot.findByPk(spotId);
 
+        if (spot.userId === userId) {
+            return res.json({ "message": "You own this property" });
+        }
+        if (spot) {
+            const spotBooking = await Booking.create({ startDate, endDate });
+            await spotBooking.setSpot(spot);
+
+            return res.json({
+                id: spotBooking.id,
+                spotId: spotBooking.spotId,
+                userId: userId,
+                startDate: spotBooking.startDate,
+                endDate: spotBooking.endDate,
+                createdAt: spotBooking.createdAt,
+                updatedAt: spotBooking.updatedAt,
+            });
+        }
+        return res.json({ "message": "Spot couldn't be found" });
     }
 );
 
