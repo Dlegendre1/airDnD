@@ -39,7 +39,7 @@ router.post(
         const otherUserEmail = await User.findOne({ where: { email } });
         const otherUsername = await User.findOne({ where: { username } });
 
-        if (otherUsername) {
+        if (otherUserEmail) {
             const err = new Error('User already exists');
             err.status = 500;
             err.title = 'User already exists';
@@ -47,7 +47,7 @@ router.post(
             return next(err);
         }
 
-        if (otherUserEmail) {
+        if (otherUsername) {
             const err = new Error('User already exists');
             err.status = 500;
             err.title = 'User already exists';

@@ -9,6 +9,46 @@ const { JsonWebTokenError } = require('jsonwebtoken');
 
 const router = express.Router();
 
+const validateSpotPost = [
+    check('address')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1 })
+        .withMessage('Street address is required'),
+    check('city')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1 })
+        .withMessage('City is required'),
+    check('state')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1 })
+        .withMessage('State is required'),
+    check('country')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1 })
+        .withMessage('Country is required'),
+    check('lat')
+        .exists({ checkFalsy: true })
+        .isInt({ min: -90, max: 90 })
+        .withMessage('Latitude is not valid'),
+    check('lng')
+        .exists({ checkFalsy: true })
+        .isInt({ min: -90, max: 90 })
+        .withMessage('Longitude is not valid'),
+    check('name')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 50 })
+        .withMessage('Name must be less than 50 characters'),
+    check('description')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1 })
+        .withMessage('Description is required'),
+    check('price')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1 })
+        .withMessage('Price per day is required'),
+    handleValidationErrors
+];
+
 //Get all spots
 router.get(
     '/',
@@ -42,7 +82,7 @@ router.get(
         if (req.query.maxPrice) {
             upperParams.price = req.query.maxPrice;
         }
-        console.log("LOWER PARAMS", lowerParams, "UPPER PARAMS", upperParams);
+
 
         const allSpots = await Spot.findAll({
             limit: size,
@@ -108,6 +148,7 @@ router.get(
 //Post a new spot
 router.post(
     '/',
+    validateSpotPost,
     async (req, res, next) => {
         const { id, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt } = req.body;
         const ownerId = req.user.id;
