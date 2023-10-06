@@ -35,14 +35,30 @@ router.get(
 //Add image to review based on reviewId
 router.post(
     '/:reviewId/images',
+    requireAuth,
     async (req, res, next) => {
+        await setTokenCookie(res, req.user);
+        const userId = req.user.id;
         const reviewId = req.params.reviewId;
         const { url } = req.body;
+        const review = await Review.findOne({
+            where: { id: reviewId },
+            include: [ReviewImage]
+        });
+
+        if (!review) {
+            return res.status(404).json({ "message": "Review couldn't be found" });
+        }
+        if (review.ReviewImages.length > 9) {
+            return res.status(403).json({ "message": "Maximum number of images for this resource was reached" });
+        }
 
         const reviewImage = await ReviewImage.create({ url });
 
+        await reviewImage.setReview(review);
+
         const safeReviewImage = {
-            id: reviewId,
+            id: reviewImage.id,
             url: reviewImage.url
         };
 

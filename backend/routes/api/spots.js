@@ -65,6 +65,17 @@ const validateSpotPost = [
         .withMessage('Price per day is required'),
     handleValidationErrors
 ];
+const validateReviewPost = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1 })
+        .withMessage('Review text is required'),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
 
 //Get all spots
 router.get(
@@ -331,22 +342,40 @@ router.get(
 //Create review for spot based on spotId
 router.post(
     '/:spotId/reviews',
+    validateReviewPost,
+    requireAuth,
     async (req, res, next) => {
-        const { id, review, stars, createdAt, updatedAt } = req.body;
         const spotId = req.params.spotId;
         const userId = req.user.id;
+        const { id, review, stars, createdAt, updatedAt } = req.body;
+        const spot = await Spot.findOne({
+            where: { id: spotId },
+            include: [Review]
+        });
+        if (!spot) {
+            return res.status(404).json({ "message": "Spot couldn't be found" });
+        }
+        const reviews = spot.Reviews;
+        const reviewUserIds = (review) => review.userId === userId;
+        if (reviews.some(reviewUserIds)) {
+            return res.status(500).json({ "message": "User already has a review for this spot" });
+        };
+
+
         const spotReview = await Review.create({ id, userId, spotId, review, stars, createdAt, updatedAt });
+
+        await spotReview.setSpot(spot);
 
         const safeReview = {
             id: spotReview.id,
             userId: userId,
-            spotId: spotId,
+            spotId: spotReview.spotId,
             review: spotReview.review,
             stars: spotReview.stars,
             createdAt: spotReview.createdAt,
             updatedAt: spotReview.updatedAt
         };
-
+        await setTokenCookie(res, req.user);
         return res.json({ ...safeReview });
     }
 );
