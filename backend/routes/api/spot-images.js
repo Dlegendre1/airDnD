@@ -19,6 +19,9 @@ router.delete(
         if (!image) {
             return res.status(404).json({ "message": "Spot Image couldn't be found" });
         }
+        if (userId !== image.userId) {
+            res.status(403).json({ "message": "Forbidden" });
+        }
 
         await image.destroy();
         return res.json({ "message": "Successfully deleted" });
