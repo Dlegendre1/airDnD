@@ -64,7 +64,7 @@ module.exports = {
         type: Sequelize.STRING
       }
 
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Spots";
