@@ -9,14 +9,14 @@ const { User } = require('../../db/models');
 const router = express.Router();
 
 const validateSignup = [
-    // check('email')
-    //     .exists({ checkFalsy: true })
-    //     .isEmail()
-    //     .withMessage('Please provide a valid email.'),
+    check('email')
+        .exists({ checkFalsy: true })
+        .isEmail()
+        .withMessage('Invalid email'),
     check('username')
         .exists({ checkFalsy: true })
         .isLength({ min: 4 })
-        .withMessage('Please provide a username with at least 4 characters.'),
+        .withMessage('Username is required'),
     check('username')
         .not()
         .isEmail()
@@ -25,6 +25,14 @@ const validateSignup = [
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })
         .withMessage('Password must be 6 characters or more.'),
+    check('firstName')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 2 })
+        .withMessage("First Name is required"),
+    check('lastName')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 2 })
+        .withMessage("Last Name is required"),
     handleValidationErrors
 ];
 
@@ -39,7 +47,7 @@ router.post(
         const otherUserEmail = await User.findOne({ where: { email } });
         const otherUsername = await User.findOne({ where: { username } });
 
-        if (otherUsername) {
+        if (otherUserEmail) {
             const err = new Error('User already exists');
             err.status = 500;
             err.title = 'User already exists';
@@ -47,7 +55,7 @@ router.post(
             return next(err);
         }
 
-        if (otherUserEmail) {
+        if (otherUsername) {
             const err = new Error('User already exists');
             err.status = 500;
             err.title = 'User already exists';
@@ -67,7 +75,7 @@ router.post(
         };
 
         await setTokenCookie(res, safeUser);
-
+        requireAuth;
         return res.json({
             user: safeUser
         });
