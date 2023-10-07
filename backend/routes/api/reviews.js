@@ -79,11 +79,11 @@ router.post(
             where: { id: reviewId },
             include: [ReviewImage]
         });
-        if (userId !== review.userId) {
-            return res.status(403).json({ "message": "Forbidden" });
-        }
         if (!review) {
             return res.status(404).json({ "message": "Review couldn't be found" });
+        }
+        if (userId !== review.userId) {
+            return res.status(403).json({ "message": "Forbidden" });
         }
         if (review.ReviewImages.length > 9) {
             return res.status(403).json({ "message": "Maximum number of images for this resource was reached" });
