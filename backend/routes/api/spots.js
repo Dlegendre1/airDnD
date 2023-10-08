@@ -521,10 +521,6 @@ router.post(
         if (!spot) {
             return res.status(404).json({ "message": "Spot couldn't be found" });
         }
-        if (spot.ownerId === userId) {
-            return res.status(403).json({ "message": "Forbidden" });
-        }
-
         if (startDate >= endDate) {
             return res.status(400).json({
                 "message": "Bad Request",
@@ -533,6 +529,10 @@ router.post(
                 }
             });
         }
+        if (spot.ownerId === userId) {
+            return res.status(403).json({ "message": "Forbidden" });
+        }
+
 
 
         const newStartDate = new Date(startDate);
