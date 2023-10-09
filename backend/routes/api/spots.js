@@ -30,7 +30,7 @@ const validateSpotPost = [
         .exists({ checkFalsy: true })
         .isDecimal()
         .custom((value) => {
-            if (value < -180 || value > 180) {
+            if (value < -90 || value > 90) {
                 return false;
             }
             return true;
@@ -89,7 +89,7 @@ const validateQueryParams = [
         .optional()
         .isDecimal()
         .custom((value) => {
-            if (value < -180 || value > 180) {
+            if (value < -90 || value > 90) {
                 return false;
             }
             return true;
@@ -99,7 +99,7 @@ const validateQueryParams = [
         .optional()
         .isDecimal()
         .custom((value) => {
-            if (value < -180 || value > 180) {
+            if (value < -90 || value > 90) {
                 return false;
             }
             return true;
@@ -137,6 +137,8 @@ const validateQueryParams = [
         .withMessage('Minimum price must be greater than or equal to 0'),
     handleValidationErrors
 ];
+
+
 //Get all spots
 router.get(
     '/',
