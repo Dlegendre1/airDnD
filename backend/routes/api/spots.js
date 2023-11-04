@@ -13,7 +13,46 @@ const router = express.Router();
 router.get(
     '/',
     async (req, res, next) => {
-        const allSpots = await Spot.findAll();
+        let page = 1;
+        let size = 20;
+
+        const lowerParams = { lat: -9999999999999, lng: -999999999999999, price: 0 };
+        const upperParams = { lat: 9999999999999, lng: 999999999999999, price: 99999999999999 };
+        if (req.query.page) {
+            page = req.query.page;
+        }
+        if (req.query.size) {
+            size = req.query.size;
+        }
+        if (req.query.minLat) {
+            lowerParams.lat = req.query.minLat;
+        }
+        if (req.query.maxLat) {
+            upperParams.lat = req.query.maxLat;
+        }
+        if (req.query.minLng) {
+            lowerParams.lng = req.query.minLng;
+        }
+        if (req.query.maxLng) {
+            upperParams.lng = req.query.maxLng;
+        }
+        if (req.query.minPrice) {
+            lowerParams.price = req.query.minPrice;
+        }
+        if (req.query.maxPrice) {
+            upperParams.price = req.query.maxPrice;
+        }
+        console.log("LOWER PARAMS", lowerParams, "UPPER PARAMS", upperParams);
+
+        const allSpots = await Spot.findAll({
+            limit: size,
+            offset: (page - 1) * size,
+            where: {
+                lat: { [Op.between]: [lowerParams.lat, upperParams.lat] },
+                lng: { [Op.between]: [lowerParams.lng, upperParams.lng] },
+                price: { [Op.between]: [lowerParams.price, upperParams.price] },
+            }
+        });
 
         const spots = allSpots.map(spot => ({
             id: spot.id,
