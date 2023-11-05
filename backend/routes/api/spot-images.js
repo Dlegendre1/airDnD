@@ -16,6 +16,7 @@ router.delete(
         const userId = req.user.id;
         const imageId = req.params.imageId;
 
+<<<<<<< HEAD
         const image = await SpotImage.scope('deleteSpotImageScope').findOne({
             where: { id: imageId }
         });
@@ -30,6 +31,12 @@ router.delete(
         if (userId !== spot.ownerId) {
             return res.status(403).json({ "message": "Forbidden" });
         }
+=======
+        const image = await SpotImage.findByPk(imageId);
+        if (!image) {
+            return res.status(404).json({ "message": "Spot Image couldn't be found" });
+        }
+>>>>>>> frontend-auth-me
 
         await image.destroy();
         return res.json({ "message": "Successfully deleted" });
