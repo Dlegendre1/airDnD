@@ -6,6 +6,7 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
+    const spots = useSelector(state => state.spots);
 
     return (
         <ul>
