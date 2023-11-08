@@ -1,11 +1,3 @@
-import { useDispatch } from "react-redux";
-
-
-
-
-
-
-
 function SpotImage({ spot }) {
 
 
