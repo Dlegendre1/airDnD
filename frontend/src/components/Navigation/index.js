@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import SpotCardList from '../SpotCardList';
+import AirBnBLogo from '../AirBnBLogo';
 
 function Navigation({ isLoaded, spots }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -16,6 +17,9 @@ function Navigation({ isLoaded, spots }) {
             </li>
             {isLoaded && (
                 <>
+                    <li>
+                        <AirBnBLogo />
+                    </li>
                     <li>
                         <ProfileButton user={sessionUser} />
                     </li>
