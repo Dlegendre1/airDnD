@@ -1,3 +1,5 @@
+import "./AirBnBLogo.css";
+
 function AirBnBLogo() {
 
     return (

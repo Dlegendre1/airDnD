@@ -17,9 +17,11 @@ export const fetchSpotsFromAPI = () => async (dispatch) => {
     const response = await csrfFetch("/api/spots", {
         method: "GET"
     });
-    const data = await response.json();
-    //step 3
-    dispatch(setSpots(data));
+    if (response.ok) {
+        const data = await response.json();
+        //step 3
+        dispatch(setSpots(data));
+    }
     return response;
 };
 

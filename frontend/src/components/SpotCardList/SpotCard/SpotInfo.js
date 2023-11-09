@@ -6,14 +6,14 @@ function SpotInfo({ spot }) {
         <>
             <div>
                 <div className="city-state">
-                    `{city}, {state}`
+                    {city}, {state}
                 </div>
                 <div className="avgRating">
-                    `{avgRating}`
+                    {avgRating}
                 </div>
             </div>
             <div className="price">
-                `${price} night`
+                ${price} night
             </div>
         </>
     );
