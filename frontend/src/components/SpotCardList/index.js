@@ -14,7 +14,7 @@ function SpotCardList({ spots }) {
 
     return (
         <>
-            {Object.values(spots).map((spot) => (
+            {spots.map((spot) => (
                 <SpotCard spot={spot} />
             ))}
         </>

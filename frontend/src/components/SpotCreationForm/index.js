@@ -21,9 +21,9 @@ function CreateASpot() {
 
     return (
         <>
-            <h1>Create a new spot</h1>
-            <h2>Where's your place located?</h2>
-            <h3>Guests will only get your exact address once they booked a reservation.</h3>
+            <h2>Create a new spot</h2>
+            <h3>Where's your place located?</h3>
+            <p>Guests will only get your exact address once they booked a reservation.</p>
             <form>
                 <label>
                     Country
@@ -79,8 +79,7 @@ function CreateASpot() {
 
         </>
     );
-
-
-
-
 }
+
+
+export default CreateASpot;
