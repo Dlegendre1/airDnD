@@ -1,11 +1,28 @@
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 
 
-function SpotDetailsPage({ user, spot }) {
+function SpotDetailsPage() {
+    const { spotId } = useParams();
 
 
+    const spotList = useSelector((state) => {
+        return state.spots.spots.find((spot) => {
+            if (spot.id === spotId) {
+                return true;
+            }
+        });
+    });
 
 
+    const spot = spotList.find((spot) => {
+        if (spot.id === spotId) {
+            return true;
+        }
+    });
+
+    const userId = spot.ownerId;
 
 
     return (
@@ -24,3 +41,5 @@ function SpotDetailsPage({ user, spot }) {
     );
 
 }
+
+export default SpotDetailsPage;

@@ -2,12 +2,20 @@ import { csrfFetch } from "./csrf";
 
 //action type
 const SET_SPOTS = "spots/setSpots";
+const SET_SPOT_DETAILS = "spots/setSpotDetails";
 
 //action
 const setSpots = (spots) => {
     return {
         type: SET_SPOTS,
         payload: spots
+    };
+};
+
+const setSpotDetails = (spot) => {
+    return {
+        type: SET_SPOT_DETAILS,
+        payload: spot
     };
 };
 
@@ -25,7 +33,19 @@ export const fetchSpotsFromAPI = () => async (dispatch) => {
     return response;
 };
 
-const initialState = { spots: [] };
+export const fetchSpotDetailsFromAPI = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "GET"
+    });
+    if (response.ok) {
+        const data = await response.json();
+        //step 3
+        dispatch(setSpotDetails(data));
+    }
+    return response;
+};
+
+const initialState = { spots: [], spotDetails: {} };
 
 
 
@@ -38,6 +58,11 @@ const spotsReducer = (state = initialState, action) => {
             //step 5
             newState = Object.assign({}, state);
             newState.spots = action.payload.Spots;
+            return newState;
+
+        case SET_SPOT_DETAILS:
+            newState = Object.assign({}, state);
+            newState.spotDetails = action.payload.Spot;
             return newState;
 
         default:
