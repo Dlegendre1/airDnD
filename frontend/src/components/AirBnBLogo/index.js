@@ -3,7 +3,7 @@ import "./AirBnBLogo.css";
 function AirBnBLogo() {
 
     return (
-        <img src="AirDnDLogo.png" alt="Logo" width={120} height={40} />
+        <img src="/AirDnDLogo.png" alt="Logo" width={120} height={40} />
     );
 }
 

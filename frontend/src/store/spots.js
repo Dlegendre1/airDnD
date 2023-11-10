@@ -62,7 +62,7 @@ const spotsReducer = (state = initialState, action) => {
 
         case SET_SPOT_DETAILS:
             newState = Object.assign({}, state);
-            newState.spotDetails = action.payload.Spot;
+            newState.spotDetails = action.payload;
             return newState;
 
         default:

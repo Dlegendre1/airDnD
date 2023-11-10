@@ -1,41 +1,52 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { fetchSpotDetailsFromAPI } from "../../store/spots";
 
 
 
 function SpotDetailsPage() {
+    const dispatch = useDispatch();
     const { spotId } = useParams();
+    const [isLoaded, setIsLoaded] = useState(false);
 
+    useEffect(() => {
+        dispatch(fetchSpotDetailsFromAPI(spotId));
+    }, [dispatch]);
 
-    const spotList = useSelector((state) => {
-        return state.spots.spots.find((spot) => {
-            if (spot.id === spotId) {
-                return true;
-            }
-        });
+    const spot = useSelector((state) => {
+        return state.spots.spotDetails;
     });
 
+    if (!spot?.SpotImages) {
+        return <div>Loading</div>;
+    }
+    const spotImages = spot.SpotImages;
 
-    const spot = spotList.find((spot) => {
-        if (spot.id === spotId) {
-            return true;
-        }
-    });
-
-    const userId = spot.ownerId;
+    const mainImage = spotImages.find((image) => image.preview);
+    const secondaryImages = spotImages.filter((image) => !image.preview);
 
 
     return (
         <>
             <div>
-                <h2>{spot.name}</h2>
-                <p>{spot.city}, {spot.state}, {spot.country}</p>
+                <h2>{spot?.name}</h2>
+                <p>{spot?.city}, {spot?.state}, {spot?.country}</p>
             </div>
             <div>
-                <img src={spot.url} alt="main image" width={1000} height={1000} />
+                <div>
+                    <img src={mainImage?.url} alt="main image" width={1000} height={1000} />
+                </div>
+                {secondaryImages.length > 0 && (
+                    <div>
+                        {secondaryImages.map((image) => (
+                            <img src={image.url} />
+                        ))}
+                    </div>
+                )}
             </div>
             <div>
-                <h2>Hosted by {user.firstName} {user.lastName}</h2>
+                <h2>Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}</h2>
             </div>
         </>
     );
