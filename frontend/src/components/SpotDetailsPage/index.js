@@ -30,12 +30,12 @@ function SpotDetailsPage() {
     return (
         <>
             <div>
-                <h2>{spot?.name}</h2>
-                <p>{spot?.city}, {spot?.state}, {spot?.country}</p>
+                <h2>{spot.name}</h2>
+                <p>{spot.city}, {spot.state}, {spot.country}</p>
             </div>
             <div>
                 <div>
-                    <img src={mainImage?.url} alt="main image" width={1000} height={1000} />
+                    <img src={mainImage.url} alt="main image" width={1000} height={1000} />
                 </div>
                 {secondaryImages.length > 0 && (
                     <div>
@@ -46,7 +46,12 @@ function SpotDetailsPage() {
                 )}
             </div>
             <div>
-                <h2>Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}</h2>
+                <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
+                <p>{spot.description}</p>
+            </div>
+            <hr></hr>
+            <div>
+                {spot.avgRating}
             </div>
         </>
     );

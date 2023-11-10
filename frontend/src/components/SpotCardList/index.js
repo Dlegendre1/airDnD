@@ -1,13 +1,13 @@
 import SpotCard from "./SpotCard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchSpotsFromAPI } from "../../store/spots";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 
-function SpotCardList({ spots }) {
+function SpotCardList() {
     const dispatch = useDispatch();
-
+    const spots = useSelector(state => state.spots.spots);
 
     useEffect(() => {
         dispatch(fetchSpotsFromAPI());
