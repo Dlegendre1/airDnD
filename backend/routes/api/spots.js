@@ -182,27 +182,49 @@ router.get(
                 lat: { [Op.between]: [lowerParams.lat, upperParams.lat] },
                 lng: { [Op.between]: [lowerParams.lng, upperParams.lng] },
                 price: { [Op.between]: [lowerParams.price, upperParams.price] },
-            }
+            },
+            include: [Review, SpotImage]
         });
 
-        const spots = allSpots.map(spot => ({
-            id: spot.id,
-            ownerId: spot.ownerId,
-            address: spot.address,
-            city: spot.city,
-            state: spot.state,
-            country: spot.country,
-            lat: spot.lat,
-            lng: spot.lng,
-            name: spot.name,
-            description: spot.description,
-            price: spot.price,
-            createdAt: spot.createdAt,
-            updatedAt: spot.updatedAt,
-            avgRating: spot.avgRating,
-            previewImage: spot.previewImage
 
-        }));
+        const spots = allSpots.map(spot => {
+            let avgRating;
+            let previewImage;
+            if (spot.Reviews.length > 0) {
+                const totalRating = spot.Reviews.reduce((avgRating, review) => {
+                    return avgRating + review.stars;
+                }, 0);
+
+                avgRating = totalRating / spot.Reviews.length;
+            }
+
+            if (spot.SpotImages.length > 0) {
+                spot.SpotImages.forEach((image) => {
+                    if (image.preview === true) {
+                        previewImage = image.url;
+                    }
+                });
+            }
+
+            return {
+                id: spot.id,
+                ownerId: spot.ownerId,
+                address: spot.address,
+                city: spot.city,
+                state: spot.state,
+                country: spot.country,
+                lat: spot.lat,
+                lng: spot.lng,
+                name: spot.name,
+                description: spot.description,
+                price: spot.price,
+                createdAt: spot.createdAt,
+                updatedAt: spot.updatedAt,
+                avgRating: avgRating,
+                previewImage: previewImage
+            };
+
+        });
         res.json({ Spots: spots, page: page, size: size });
     }
 );
@@ -243,9 +265,9 @@ router.post(
     validateSpotPost,
     requireAuth,
     async (req, res, next) => {
-        const { id, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt } = req.body;
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
         const ownerId = req.user.id;
-        const spot = await Spot.create({ id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt });
+        const spot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
 
         const safeSpot = {
             id: spot.id,
@@ -276,10 +298,20 @@ router.get(
         const spotId = req.params.spotId;
         const spot = await Spot.findOne({
             where: { id: spotId },
-            include: [SpotImage, { model: User, as: 'Owner' }]
+            include: [SpotImage, { model: User, as: 'Owner' }, Review]
         });
 
+
         if (spot) {
+            if (spot.Reviews.length > 0) {
+                let avgRating;
+                const totalRating = spot.Reviews.reduce((avgRating, review) => {
+                    return avgRating + review.stars;
+                }, 0);
+
+                avgRating = totalRating / spot.Reviews.length;
+                spot.avgRating = avgRating;
+            }
 
             return res.json(spot);
         } else {

@@ -1,0 +1,74 @@
+.spot-creation-form {
+    margin: auto;
+    width: 33%;
+    padding: 10px;
+
+}
+
+.country-area>label {
+    display: flex;
+    flex-direction: column;
+}
+
+.address-area>label {
+    display: flex;
+    flex-direction: column;
+}
+
+.lat-lng-area label {
+    display: flex;
+    flex-direction: column;
+}
+
+.city-state-area {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.lat-lng-area {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.city-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.state-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.lng-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.lng-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.city-area {
+    width: 75%
+}
+
+.state-area {
+    width: 25%
+}
+
+.lat-area {
+    width: 50%
+}
+
+.lng-area {
+    width: 50%
+}
+
+span {
+    padding-top: 20px;
+    padding-right: 10px
+}

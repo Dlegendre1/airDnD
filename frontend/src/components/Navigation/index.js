@@ -5,12 +5,14 @@ import ProfileButton from './ProfileButton';
 import './Navigation.css';
 import SpotCardList from '../SpotCardList';
 import AirBnBLogo from '../AirBnBLogo';
+import CreateSpotButton from '../CreateSpotButton';
 
 function Navigation({ isLoaded, spots }) {
     const sessionUser = useSelector(state => state.session.user);
 
 
     return (
+
         <ul>
             {isLoaded && (
                 <>
@@ -20,6 +22,11 @@ function Navigation({ isLoaded, spots }) {
                     <li>
                         <ProfileButton user={sessionUser} />
                     </li>
+                    {sessionUser && (
+                        <>
+                            <CreateSpotButton />
+                        </>
+                    )}
                 </>
             )}
         </ul>

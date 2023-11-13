@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchSpotDetailsFromAPI } from "../../store/spots";
-
+import { fetchSpotDetailsFromAPI, getSpotReviewsFromAPI } from "../../store/spots";
+import ReviewInfo from "../ReviewInfo";
 
 
 function SpotDetailsPage() {
@@ -12,10 +12,15 @@ function SpotDetailsPage() {
 
     useEffect(() => {
         dispatch(fetchSpotDetailsFromAPI(spotId));
+        dispatch(getSpotReviewsFromAPI(spotId));
     }, [dispatch]);
 
     const spot = useSelector((state) => {
         return state.spots.spotDetails;
+    });
+
+    const reviews = useSelector((state) => {
+        return state.spots.reviews;
     });
 
     if (!spot?.SpotImages) {
@@ -49,9 +54,19 @@ function SpotDetailsPage() {
                 <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
                 <p>{spot.description}</p>
             </div>
+            <div>
+                <section>${spot.price} night</section>
+                <ReviewInfo spot={spot} reviews={reviews} />
+                <button>Reserve</button>
+            </div>
             <hr></hr>
             <div>
-                {spot.avgRating}
+                <div>
+                    <ReviewInfo spot={spot} reviews={reviews} />
+                </div>
+                <div>
+                    
+                </div>
             </div>
         </>
     );

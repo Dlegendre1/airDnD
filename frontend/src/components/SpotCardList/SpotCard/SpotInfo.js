@@ -1,10 +1,12 @@
+import './SpotCard.css';
+
 function SpotInfo({ spot }) {
     const { city, state, avgRating, price } = spot;
 
 
     return (
         <>
-            <div>
+            <div className='city-state and avgRating container'>
                 <div className="city-state">
                     {city}, {state}
                 </div>
