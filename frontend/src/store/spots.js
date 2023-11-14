@@ -35,6 +35,7 @@ const setReviews = (spot) => {
     };
 };
 
+
 //step 1
 export const fetchSpotsFromAPI = () => async (dispatch) => {
     //step 2
@@ -95,6 +96,18 @@ export const getSpotReviewsFromAPI = (spotId) => async (dispatch) => {
         const data = await response.json();
         dispatch(setReviews(data));
     }
+    return response;
+};
+
+export const addReviewToSpot = (review, stars, spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: 'POST',
+        body: JSON.stringify({
+            review,
+            stars
+        })
+    });
+    const data = await response.json();
     return response;
 };
 

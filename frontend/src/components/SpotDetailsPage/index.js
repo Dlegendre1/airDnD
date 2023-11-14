@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchSpotDetailsFromAPI, getSpotReviewsFromAPI } from "../../store/spots";
 import ReviewInfo from "../ReviewInfo";
-
+import SpotReview from "../SpotReview";
+import OpenModalButton from "../OpenModalButton";
+import PostReviewToSpot from "../PostReviewToSpot";
 
 function SpotDetailsPage() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const [isLoaded, setIsLoaded] = useState(false);
+    const sessionUser = useSelector(state => state.session.user);
 
     useEffect(() => {
         dispatch(fetchSpotDetailsFromAPI(spotId));
@@ -64,8 +67,14 @@ function SpotDetailsPage() {
                 <div>
                     <ReviewInfo spot={spot} reviews={reviews} />
                 </div>
+                {sessionUser && (
+                    <OpenModalButton
+                        buttonText={"Post Your Review"}
+                        modalComponent={<PostReviewToSpot />}
+                    />
+                )}
                 <div>
-                    
+                    <SpotReview reviews={reviews} />
                 </div>
             </div>
         </>
