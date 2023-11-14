@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from "../../store/spots";
 import { useHistory } from "react-router-dom";
+import './index.css';
 
 function PostReviewToSpot() {
     const dispatch = useDispatch();
@@ -36,12 +37,38 @@ function PostReviewToSpot() {
                 </label>
                 <label>
                     Stars
-                    <input
-                        type="radio"
-                        value={stars}
-                        onChange={(e) => setStars(e.target.value)}
-                        required
-                    />
+                    <div className="rating">
+                        <label>
+                            <input type="radio" name="stars" value="1" />
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="stars" value="2" />
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="stars" value="3" />
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="stars" value="4" />
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="stars" value="5" />
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                    </div>
                 </label>
                 <button type="submit">Submit Your Review</button>
             </form>

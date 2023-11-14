@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation";
 import SpotDetailsPage from "./components/SpotDetailsPage";
 import SpotCardList from "./components/SpotCardList";
 import CreateASpot from "./components/SpotCreationForm";
-
+import UserSpots from "./components/UserSpots";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={SpotCardList} />
           <Route path="/spots/new" component={CreateASpot} />
+          <Route path='/spots/current' component={UserSpots} />
           <Route path="/spots/:spotId" component={SpotDetailsPage} />
         </Switch>
       }
