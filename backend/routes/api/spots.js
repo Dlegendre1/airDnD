@@ -195,7 +195,7 @@ router.get(
                     return avgRating + review.stars;
                 }, 0);
 
-                avgRating = totalRating / spot.Reviews.length;
+                avgRating = (totalRating / spot.Reviews.length).toFixed(2);
             }
 
             if (spot.SpotImages.length > 0) {
@@ -309,7 +309,7 @@ router.get(
                     return avgRating + review.stars;
                 }, 0);
 
-                avgRating = totalRating / spot.Reviews.length;
+                avgRating = (totalRating / spot.Reviews.length).toFixed(2);
                 spot.avgRating = avgRating;
             }
 

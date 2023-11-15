@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import * as spotActions from "../../store/spots";
 import { useHistory } from "react-router-dom";
 import './index.css';
+import { useModal } from "../../context/Modal";
 
 function PostReviewToSpot() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
+    const { closeModal } = useModal();
     const spotDetails = useSelector(state => state.spots.spotDetails);
     const spotId = spotDetails.id;
 
@@ -16,8 +18,11 @@ function PostReviewToSpot() {
         e.preventDefault();
         return dispatch(spotActions.addReviewToSpot(review, stars, spotId))
             .then((spot) => {
-                history.push(`/spots/${spot.spotId}`);
+                // history.push(`/spots/${spot.spotId}`);
+                closeModal();
+                dispatch(spotActions.postReviewToSpot());
             });
+
     };
 
 
@@ -39,29 +44,29 @@ function PostReviewToSpot() {
                     Stars
                     <div className="rating">
                         <label>
-                            <input type="radio" name="stars" value="1" />
+                            <input type="radio" name="stars" value="1" onChange={(e) => setStars(e.target.value)} />
                             <span class="icon">★</span>
                         </label>
                         <label>
-                            <input type="radio" name="stars" value="2" />
-                            <span class="icon">★</span>
-                            <span class="icon">★</span>
-                        </label>
-                        <label>
-                            <input type="radio" name="stars" value="3" />
-                            <span class="icon">★</span>
+                            <input type="radio" name="stars" value="2" onChange={(e) => setStars(e.target.value)} />
                             <span class="icon">★</span>
                             <span class="icon">★</span>
                         </label>
                         <label>
-                            <input type="radio" name="stars" value="4" />
-                            <span class="icon">★</span>
+                            <input type="radio" name="stars" value="3" onChange={(e) => setStars(e.target.value)} />
                             <span class="icon">★</span>
                             <span class="icon">★</span>
                             <span class="icon">★</span>
                         </label>
                         <label>
-                            <input type="radio" name="stars" value="5" />
+                            <input type="radio" name="stars" value="4" onChange={(e) => setStars(e.target.value)} />
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                            <span class="icon">★</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="stars" value="5" onChange={(e) => setStars(e.target.value)} />
                             <span class="icon">★</span>
                             <span class="icon">★</span>
                             <span class="icon">★</span>
@@ -74,6 +79,6 @@ function PostReviewToSpot() {
             </form>
         </>
     );
-}
+};
 
 export default PostReviewToSpot;

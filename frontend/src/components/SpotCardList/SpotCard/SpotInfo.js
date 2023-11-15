@@ -11,7 +11,8 @@ function SpotInfo({ spot }) {
                     {city}, {state}
                 </div>
                 <div className="avgRating">
-                    {avgRating}
+                    <i className="fa-solid fa-star"></i>
+                    {avgRating ? avgRating : <span>New</span>}
                 </div>
             </div>
             <div className="price">

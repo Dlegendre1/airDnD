@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchSpotDetailsFromAPI, getSpotReviewsFromAPI } from "../../store/spots";
+import { fetchSpotDetailsFromAPI, getSpotReviewsFromAPI, postReviewToSpot } from "../../store/spots";
 import ReviewInfo from "../ReviewInfo";
 import SpotReview from "../SpotReview";
 import OpenModalButton from "../OpenModalButton";
@@ -12,11 +12,12 @@ function SpotDetailsPage() {
     const { spotId } = useParams();
     const [isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
+    const mostRecentReview = useSelector(state => state.spots.mostRecentReview);
 
     useEffect(() => {
         dispatch(fetchSpotDetailsFromAPI(spotId));
         dispatch(getSpotReviewsFromAPI(spotId));
-    }, [dispatch]);
+    }, [dispatch, mostRecentReview]);
 
     const spot = useSelector((state) => {
         return state.spots.spotDetails;
@@ -60,7 +61,7 @@ function SpotDetailsPage() {
             <div>
                 <section>${spot.price} night</section>
                 <ReviewInfo spot={spot} reviews={reviews} />
-                <button>Reserve</button>
+                <button onClick={() => alert('Feature coming soon')}>Reserve</button>
             </div>
             <hr></hr>
             <div>
