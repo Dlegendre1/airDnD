@@ -7,6 +7,8 @@ function DeleteSpotModal({ spotId }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
     console.log(spotId, '###############');
+
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         return dispatch(spotActions.deleteSpot(spotId))
