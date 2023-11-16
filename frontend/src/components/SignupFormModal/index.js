@@ -41,6 +41,13 @@ function SignupFormModal() {
         });
     };
 
+    const emailCheck = email.length < 1;
+    const usernameCheck = username.length < 4;
+    const firstNameCheck = firstName.length < 1;
+    const lastNameCheck = lastName.length < 1;
+    const passwordCheck = password.length < 6;
+    const confirmPasswordCheck = confirmPassword.length < 1;
+
     return (
         <>
             <h1>Sign Up</h1>
@@ -107,7 +114,7 @@ function SignupFormModal() {
                 {errors.confirmPassword && (
                     <p>{errors.confirmPassword}</p>
                 )}
-                <button type="submit">Sign Up</button>
+                <button type="submit" disabled={emailCheck || usernameCheck || firstNameCheck || lastNameCheck || passwordCheck || confirmPasswordCheck}>Sign Up</button>
             </form>
         </>
     );

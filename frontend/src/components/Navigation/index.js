@@ -15,19 +15,21 @@ function Navigation({ isLoaded, spots }) {
 
         <ul>
             {isLoaded && (
-                <>
-                    <li>
+                <div className='navigation-bar'>
+                    <div className='logo'>
                         <AirBnBLogo />
-                    </li>
-                    <li>
-                        <ProfileButton user={sessionUser} />
-                    </li>
-                    {sessionUser && (
-                        <>
-                            <CreateSpotButton />
-                        </>
-                    )}
-                </>
+                    </div>
+                    <div className='spot-and-profile-buttons'>
+                        {sessionUser && (
+                            <div className='create-spot-button'>
+                                <CreateSpotButton />
+                            </div>
+                        )}
+                        <div className='profile-button'>
+                            <ProfileButton user={sessionUser} />
+                        </div>
+                    </div>
+                </div>
             )}
         </ul>
     );

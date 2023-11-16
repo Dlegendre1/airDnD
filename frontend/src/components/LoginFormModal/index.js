@@ -3,8 +3,9 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import DemoUser from "../DemoUser";
 
-function LoginFormModal() {
+function LoginFormModal({ user }) {
     const dispatch = useDispatch();
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
@@ -23,6 +24,18 @@ function LoginFormModal() {
                 }
             });
     };
+
+    const handleDemoLogin = async () => {
+
+        setCredential('demouser');
+        setPassword('demouser');
+
+        return dispatch(sessionActions.login({ credential, password }))
+            .then(closeModal);
+    };
+
+    const usernameLengthCheck = credential.length < 4;
+    const passwordLengthCheck = password.length < 6;
 
     return (
         <>
@@ -46,11 +59,13 @@ function LoginFormModal() {
                         required
                     />
                 </label>
-                {errors.credential && (
-                    <p>{errors.credential}</p>
+                {errors.message && (
+                    <p>{errors.message}</p>
                 )}
-                <button type="submit">Log In</button>
+                <button type="submit" disabled={usernameLengthCheck || passwordLengthCheck}>Log In</button>
             </form>
+            <button type="button" onClick={handleDemoLogin}>Demo User</button>
+
         </>
     );
 }
