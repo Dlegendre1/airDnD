@@ -13,6 +13,7 @@ function SpotDetailsPage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const mostRecentReview = useSelector(state => state.spots.mostRecentReview);
+    const mostRecentlyDeletedId = useSelector(state => state.reviews.mostRecentlyDeletedId);
     const spot = useSelector((state) => {
         return state.spots.spotDetails;
     });
@@ -20,12 +21,14 @@ function SpotDetailsPage() {
     const reviews = useSelector((state) => {
         return state.spots.reviews;
     });
+
     let areThereReviews;
     let sessionUserReview;
+
     useEffect(() => {
         dispatch(fetchSpotDetailsFromAPI(spotId));
         dispatch(getSpotReviewsFromAPI(spotId));
-    }, [dispatch, mostRecentReview]);
+    }, [dispatch, mostRecentReview, mostRecentlyDeletedId]);
 
 
     if (!spot?.SpotImages) {
@@ -92,7 +95,7 @@ function SpotDetailsPage() {
                     </>
                 )}
                 <div>
-                    <SpotReview reviews={reviews} />
+                    <SpotReview />
                 </div>
             </div>
         </>

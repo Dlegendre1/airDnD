@@ -175,6 +175,7 @@ export const deleteSpot = (spotId) => async (dispatch) => {
     }
     return response;
 };
+
 const initialState = { spots: [], spotDetails: {}, reviews: [], mostRecentReview: {}, spot: {} };
 
 
