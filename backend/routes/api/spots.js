@@ -68,16 +68,19 @@ const validateSpotPost = [
         })
         .withMessage('Price per day is required'),
     check('previewUrl')
-        .exists({ checkFalsy: true })
-        .isLength({ min: 1 })
-        .withMessage('Preview image is required'),
-    check('url')
-        .exists({ checkFalsy: true })
         .custom((value) => {
-            if (!value || !value.endsWith('.png', '.jpg', '.jpeg')) {
-                return false;
+            if (value == value) {
+                return true;
             }
             return true;
+        })
+        .withMessage('Preview image is required'),
+    check('url')
+        .custom((value) => {
+            if (!value || value.endsWith('.png', '.jpg', '.jpeg')) {
+                return true;
+            }
+            return false;
         })
         .withMessage('Image URL must end in .png, .jpg, or .jpeg'),
     handleValidationErrors
