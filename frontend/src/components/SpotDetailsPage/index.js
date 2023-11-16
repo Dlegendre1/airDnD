@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchSpotDetailsFromAPI, getSpotReviewsFromAPI, postReviewToSpot } from "../../store/spots";
+import { fetchSpotDetailsFromAPI, getSpotReviewsFromAPI } from "../../store/spots";
 import ReviewInfo from "../ReviewInfo";
 import SpotReview from "../SpotReview";
 import OpenModalButton from "../OpenModalButton";
@@ -27,6 +27,9 @@ function SpotDetailsPage() {
         return state.spots.reviews;
     });
 
+    const areThereReviews = (sessionUser.id !== spot.Owner.id && reviews.length === 0);
+    const areThereReviewsTwo = (sessionUser.id !== spot.Owner.id && reviews.length > 0);
+
     if (!spot?.SpotImages) {
         return <div>Loading</div>;
     }
@@ -34,7 +37,6 @@ function SpotDetailsPage() {
 
     const mainImage = spotImages.find((image) => image.preview);
     const secondaryImages = spotImages.filter((image) => !image.preview);
-
 
     return (
         <>
@@ -68,7 +70,13 @@ function SpotDetailsPage() {
                 <div>
                     <ReviewInfo spot={spot} reviews={reviews} />
                 </div>
-                {sessionUser && (
+                {areThereReviews && (
+                    <OpenModalButton
+                        buttonText={"Be the first to post a review!"}
+                        modalComponent={<PostReviewToSpot />}
+                    />
+                )}
+                {areThereReviewsTwo && (
                     <OpenModalButton
                         buttonText={"Post Your Review"}
                         modalComponent={<PostReviewToSpot />}

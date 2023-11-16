@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as spotsActions from "../../store/spots";
 import { useHistory, useParams } from 'react-router-dom';
 import './index.css';
+import { fetchSpotDetailsFromAPI } from "../../store/spots";
 
 function EditASpot() {
     const dispatch = useDispatch();
+    const spot = useSelector(state => state.spots.spotDetails);
     const history = useHistory();
     const [country, setCountry] = useState("");
     const [address, setAddress] = useState("");
@@ -16,22 +18,36 @@ function EditASpot() {
     const [description, setDescription] = useState('');
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
-    const [previewUrl, setPreviewUrl] = useState('');
-    const [url, setUrl] = useState('');
+    const [previewImage, setPreviewImage] = useState('');
+    const [secondaryImages, setSecondaryImages] = useState([]);
     const { spotId } = useParams();
 
-    const spots = useSelector(state => state.spots);
-    console.log(spots, '@@@@@');
+    useEffect(() => {
+        dispatch(fetchSpotDetailsFromAPI(spotId))
+            .then((spotDetails) => {
+                setCountry(spot.country);
+                setAddress(spot.address);
+                setCity(spot.city);
+                setState(spot.state);
+                setLat(spot.lat);
+                setLng(spot.lng);
+                setDescription(spot.description);
+                setName(spot.name);
+                setPrice(spot.price);
+                setPreviewImage(spot.previewImage);
+            });
+    }, [dispatch]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        return dispatch(spotsActions.postNewSpot({ address, city, state, country, lat, lng, name, description, price }, { url: previewUrl, preview: true }))
+        return dispatch(spotsActions.editExistingSpot({ address, city, state, country, lat, lng, name, description, price }, spotId))
             .then((spot) => {
+                console.log(spot, "$$$$$$$$$$$$$$");
                 history.push(`/spots/${spot.id}`);
             });
     };
 
-
+    console.log(spot, '############');
     return (
         <div className="spot-creation-form">
             <div className="spot-create-form-header">
@@ -45,8 +61,8 @@ function EditASpot() {
                         Country
                         <input
                             type='text'
+                            defaultValue={spot.country}
                             value={country}
-                            placeholder={country}
                             onChange={(e) => setCountry(e.target.value)}
                             required />
                     </label>
@@ -56,8 +72,8 @@ function EditASpot() {
                         Street Address
                         <input
                             type='text'
+                            defaultValue={spot.address}
                             value={address}
-                            placeholder="Address"
                             onChange={(e) => setAddress(e.target.value)}
                             required />
                     </label>
@@ -68,8 +84,8 @@ function EditASpot() {
                             City
                             <input
                                 type='text'
+                                defaultValue={spot.city}
                                 value={city}
-                                placeholder="City"
                                 onChange={(e) => setCity(e.target.value)}
                                 required />
                         </label>
@@ -80,8 +96,8 @@ function EditASpot() {
                             State
                             <input
                                 type='text'
+                                defaultValue={spot.state}
                                 value={state}
-                                placeholder="STATE"
                                 onChange={(e) => setState(e.target.value)}
                                 required />
                         </label>
@@ -93,8 +109,8 @@ function EditASpot() {
                             Latitude
                             <input
                                 type='text'
+                                defaultValue={spot.lat}
                                 value={lat}
-                                placeholder="Latitude"
                                 onChange={(e) => setLat(e.target.value)}
                                 required />
                         </label>
@@ -105,8 +121,8 @@ function EditASpot() {
                             Longitude
                             <input
                                 type='text'
+                                defaultValue={spot.lng}
                                 value={lng}
-                                placeholder="Longitude"
                                 onChange={(e) => setLng(e.target.value)}
                                 required />
                         </label>
@@ -120,8 +136,8 @@ function EditASpot() {
                 <label className="description-text">
                     <input
                         type='textarea'
+                        defaultValue={spot.description}
                         value={description}
-                        placeholder="Please write at least 30 characters"
                         onChange={(e) => setDescription(e.target.value)}
                         required />
                 </label>
@@ -133,8 +149,8 @@ function EditASpot() {
                 <label className="name-of-area-text">
                     <input
                         type='text'
+                        defaultValue={spot.name}
                         value={name}
-                        placeholder="Name of your spot"
                         onChange={(e) => setName(e.target.value)}
                         required />
                 </label>
@@ -146,8 +162,8 @@ function EditASpot() {
                         $
                         <input
                             type='text'
+                            defaultValue={spot.price}
                             value={price}
-                            placeholder="Price per night (USD)"
                             onChange={(e) => setPrice(e.target.value)}
                             required />
                     </label>
@@ -159,38 +175,10 @@ function EditASpot() {
                     <label>
                         <input
                             type='url'
-                            value={previewUrl}
-                            placeholder="Preview Image URL"
-                            onChange={(e) => setPreviewUrl(e.target.value)}
+                            defaultValue={spot.previewImage}
+                            value={previewImage}
+                            onChange={(e) => setPreviewImage(e.target.value)}
                             required />
-                    </label>
-                    <label>
-                        <input
-                            type='url'
-                            value={url}
-                            placeholder="Image URL"
-                            onChange={(e) => setUrl(e.target.value)} />
-                    </label>
-                    <label>
-                        <input
-                            type='url'
-                            value={url}
-                            placeholder="Image URL"
-                            onChange={(e) => setUrl(e.target.value)} />
-                    </label>
-                    <label>
-                        <input
-                            type='url'
-                            value={url}
-                            placeholder="Image URL"
-                            onChange={(e) => setUrl(e.target.value)} />
-                    </label>
-                    <label>
-                        <input
-                            type='url'
-                            value={url}
-                            placeholder="Image URL"
-                            onChange={(e) => setUrl(e.target.value)} />
                     </label>
                     <hr></hr>
                 </div>

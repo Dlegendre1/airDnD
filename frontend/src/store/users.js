@@ -28,7 +28,7 @@ const usersReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USERS:
             newState = Object.assign({}, state);
-            newState.spots = action.payload.Users;
+            newState.users = action.payload.Users;
             return newState;
 
         default:

@@ -6,12 +6,20 @@ const ADD_SPOT = "spots/addSpot";
 const SET_SPOT_DETAILS = "spots/setSpotDetails";
 const SET_REVIEWS = "spots/setReviews";
 const POST_REVIEW_TO_SPOT = 'spots/postReviewToSpot';
+const EDIT_SPOT = "spots/editSpot";
 
 //action
 const setSpots = (spots) => {
     return {
         type: SET_SPOTS,
         payload: spots
+    };
+};
+
+const editSpot = (spot, spotId) => {
+    return {
+        type: EDIT_SPOT,
+        payload: { spot, spotId }
     };
 };
 
@@ -118,7 +126,28 @@ export const addReviewToSpot = (review, stars, spotId) => async (dispatch) => {
     return data;
 };
 
-const initialState = { spots: [], spotDetails: {}, reviews: [], mostRecentReview: {} };
+export const editExistingSpot = (spot, spotId) => async (dispatch) => {
+    const { address, city, state, country, lat, lng, name, description, price } = spot;
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        })
+    });
+    const data = await response.json();
+    dispatch(editSpot(data));
+    return data;
+};
+
+const initialState = { spots: [], spotDetails: {}, reviews: [], mostRecentReview: {}, spot: {} };
 
 
 
@@ -151,6 +180,11 @@ const spotsReducer = (state = initialState, action) => {
         case POST_REVIEW_TO_SPOT:
             newState = Object.assign({}, state);
             newState.mostRecentReview = action.payload;
+            return newState;
+
+        case EDIT_SPOT:
+            newState = Object.assign({}, state);
+            newState.spot = action.payload;
             return newState;
 
         default:

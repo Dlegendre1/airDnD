@@ -26,11 +26,7 @@ function LoginFormModal({ user }) {
     };
 
     const handleDemoLogin = async () => {
-
-        setCredential('demouser');
-        setPassword('demouser');
-
-        return dispatch(sessionActions.login({ credential, password }))
+        return dispatch(sessionActions.login({ credential: 'demouser', password: 'demouser' }))
             .then(closeModal);
     };
 

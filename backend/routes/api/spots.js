@@ -313,6 +313,14 @@ router.get(
                 spot.avgRating = avgRating;
             }
 
+            if (spot.SpotImages.length > 0) {
+                spot.SpotImages.forEach((image) => {
+                    if (image.preview === true) {
+                        spot.previewImage = image.url;
+                    }
+                });
+            }
+
             return res.json(spot);
         } else {
             return res.status(404).json({ "message": "Spot couldn't be found" });
