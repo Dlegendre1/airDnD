@@ -7,6 +7,7 @@ const SET_SPOT_DETAILS = "spots/setSpotDetails";
 const SET_REVIEWS = "spots/setReviews";
 const POST_REVIEW_TO_SPOT = 'spots/postReviewToSpot';
 const EDIT_SPOT = "spots/editSpot";
+const DELETE_SPOT = "spots/deleteSpot";
 
 //action
 const setSpots = (spots) => {
@@ -20,6 +21,13 @@ const editSpot = (spot, spotId) => {
     return {
         type: EDIT_SPOT,
         payload: { spot, spotId }
+    };
+};
+
+const deleteSpotAction = (spotId) => {
+    return {
+        type: DELETE_SPOT,
+        payload: spotId
     };
 };
 
@@ -147,6 +155,27 @@ export const editExistingSpot = (spot, spotId) => async (dispatch) => {
     return data;
 };
 
+export const deleteSpot = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    });
+
+    if (response.ok) {
+        dispatch(deleteSpotAction(spotId));
+
+        const spotsResponse = await csrfFetch(`/api/spots`, {
+            method: 'GET'
+        });
+
+        if (spotsResponse.ok) {
+            const spotsData = await spotsResponse.json();
+            dispatch(setSpots(spotsData));
+        }
+
+    }
+
+    return response;
+};
 const initialState = { spots: [], spotDetails: {}, reviews: [], mostRecentReview: {}, spot: {} };
 
 
@@ -187,6 +216,10 @@ const spotsReducer = (state = initialState, action) => {
             newState.spot = action.payload;
             return newState;
 
+        case DELETE_SPOT:
+            newState = Object.assign({}, state);
+            newState.spots = state.spots.filter(spot => spot.id !== action.payload);
+            return newState;
         default:
             return state;
     }
