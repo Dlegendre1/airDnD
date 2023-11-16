@@ -25,8 +25,8 @@ function PostReviewToSpot() {
 
     };
 
-
-
+    const reviewLength = review.length < 10;
+    const starsValue = stars;
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -75,7 +75,7 @@ function PostReviewToSpot() {
                         </label>
                     </div>
                 </label>
-                <button type="submit">Submit Your Review</button>
+                <button type="submit" disabled={reviewLength || !starsValue}>Submit Your Review</button>
             </form>
         </>
     );

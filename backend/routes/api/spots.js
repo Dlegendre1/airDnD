@@ -50,10 +50,14 @@ const validateSpotPost = [
         .exists({ checkFalsy: true })
         .isLength({ max: 50 })
         .withMessage('Name must be less than 50 characters'),
-    check('description')
+    check('name')
         .exists({ checkFalsy: true })
         .isLength({ min: 1 })
-        .withMessage('Description is required'),
+        .withMessage('Name is required'),
+    check('description')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 30 })
+        .withMessage('Description needs 30 or more characters'),
     check('price')
         .exists({ checkFalsy: true })
         .custom((value) => {
@@ -63,6 +67,19 @@ const validateSpotPost = [
             return true;
         })
         .withMessage('Price per day is required'),
+    check('previewUrl')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 1 })
+        .withMessage('Preview image is required'),
+    check('url')
+        .exists({ checkFalsy: true })
+        .custom((value) => {
+            if (!value || !value.endsWith('.png', '.jpg', '.jpeg')) {
+                return false;
+            }
+            return true;
+        })
+        .withMessage('Image URL must end in .png, .jpg, or .jpeg'),
     handleValidationErrors
 ];
 const validateReviewPost = [
@@ -422,7 +439,6 @@ router.delete(
 //Get all reviews by spotId
 router.get(
     '/:spotId/reviews',
-    requireAuth,
     async (req, res, next) => {
         const spotId = req.params.spotId;
         const spot = await Spot.findOne({ where: { id: spotId } });

@@ -18,12 +18,20 @@ function CreateASpot() {
     const [price, setPrice] = useState(0);
     const [previewUrl, setPreviewUrl] = useState('');
     const [url, setUrl] = useState('');
+    const [errors, setErrors] = useState({});
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setErrors({});
         return dispatch(spotsActions.postNewSpot({ address, city, state, country, lat, lng, name, description, price }, { url: previewUrl, preview: true }))
             .then((spot) => {
                 history.push(`/spots/${spot.id}`);
+            })
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) {
+                    setErrors(data.errors);
+                }
             });
     };
 
@@ -44,8 +52,9 @@ function CreateASpot() {
                             value={country}
                             placeholder="Country"
                             onChange={(e) => setCountry(e.target.value)}
-                            required />
+                        />
                     </label>
+                    {errors.country && <p>{errors.country}</p>}
                 </div>
                 <div className="address-area">
                     <label className="address-text">
@@ -55,8 +64,9 @@ function CreateASpot() {
                             value={address}
                             placeholder="Address"
                             onChange={(e) => setAddress(e.target.value)}
-                            required />
+                        />
                     </label>
+                    {errors.address && <p>{errors.address}</p>}
                 </div>
                 <div className="city-state-area">
                     <div className="city-area">
@@ -67,8 +77,9 @@ function CreateASpot() {
                                 value={city}
                                 placeholder="City"
                                 onChange={(e) => setCity(e.target.value)}
-                                required />
+                            />
                         </label>
+                        {errors.city && <p>{errors.city}</p>}
                     </div>
                     <span>, </span>
                     <div className="state-area">
@@ -79,8 +90,9 @@ function CreateASpot() {
                                 value={state}
                                 placeholder="STATE"
                                 onChange={(e) => setState(e.target.value)}
-                                required />
+                            />
                         </label>
+                        {errors.state && <p>{errors.state}</p>}
                     </div>
                 </div>
                 <div className="lat-lng-area">
@@ -92,8 +104,9 @@ function CreateASpot() {
                                 value={lat}
                                 placeholder="Latitude"
                                 onChange={(e) => setLat(e.target.value)}
-                                required />
+                            />
                         </label>
+                        {errors.lat && <p>{errors.lat}</p>}
                     </div>
                     <span>, </span>
                     <div className="lng-area">
@@ -104,8 +117,9 @@ function CreateASpot() {
                                 value={lng}
                                 placeholder="Longitude"
                                 onChange={(e) => setLng(e.target.value)}
-                                required />
+                            />
                         </label>
+                        {errors.lng && <p>{errors.lng}</p>}
                     </div>
                 </div>
                 <hr></hr>
@@ -119,8 +133,9 @@ function CreateASpot() {
                         value={description}
                         placeholder="Please write at least 30 characters"
                         onChange={(e) => setDescription(e.target.value)}
-                        required />
+                    />
                 </label>
+                {errors.description && <p>{errors.description}</p>}
                 <hr></hr>
                 <div className="title-for-spot-area">
                     <h2>Create a title for your spot</h2>
@@ -132,8 +147,9 @@ function CreateASpot() {
                         value={name}
                         placeholder="Name of your spot"
                         onChange={(e) => setName(e.target.value)}
-                        required />
+                    />
                 </label>
+                {errors.name && <p>{errors.name}</p>}
                 <hr></hr>
                 <div className="price-for-spot-textarea">
                     <h2>Set a base price for your spot</h2>
@@ -145,8 +161,9 @@ function CreateASpot() {
                             value={price}
                             placeholder="Price per night (USD)"
                             onChange={(e) => setPrice(e.target.value)}
-                            required />
+                        />
                     </label>
+                    {errors.price && <p>{errors.price}</p>}
                     <hr></hr>
                 </div>
                 <div>
@@ -158,7 +175,8 @@ function CreateASpot() {
                             value={previewUrl}
                             placeholder="Preview Image URL"
                             onChange={(e) => setPreviewUrl(e.target.value)}
-                            required />
+                        />
+                        {errors.previewUrl && <p>{errors.previewUrl}</p>}
                     </label>
                     <label>
                         <input
@@ -167,6 +185,7 @@ function CreateASpot() {
                             placeholder="Image URL"
                             onChange={(e) => setUrl(e.target.value)} />
                     </label>
+                    {errors.url && <p>{errors.url}</p>}
                     <label>
                         <input
                             type='url'
@@ -194,7 +213,7 @@ function CreateASpot() {
                     <button type="submit">Create Spot</button>
                 </div>
             </form>
-        </div>
+        </div >
     );
 }
 

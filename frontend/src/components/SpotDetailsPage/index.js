@@ -13,12 +13,6 @@ function SpotDetailsPage() {
     const [isLoaded, setIsLoaded] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
     const mostRecentReview = useSelector(state => state.spots.mostRecentReview);
-
-    useEffect(() => {
-        dispatch(fetchSpotDetailsFromAPI(spotId));
-        dispatch(getSpotReviewsFromAPI(spotId));
-    }, [dispatch, mostRecentReview]);
-
     const spot = useSelector((state) => {
         return state.spots.spotDetails;
     });
@@ -26,9 +20,13 @@ function SpotDetailsPage() {
     const reviews = useSelector((state) => {
         return state.spots.reviews;
     });
+    let areThereReviews;
+    let sessionUserReview;
+    useEffect(() => {
+        dispatch(fetchSpotDetailsFromAPI(spotId));
+        dispatch(getSpotReviewsFromAPI(spotId));
+    }, [dispatch, mostRecentReview]);
 
-    const areThereReviews = (sessionUser.id !== spot.Owner.id && reviews.length === 0);
-    const areThereReviewsTwo = (sessionUser.id !== spot.Owner.id && reviews.length > 0);
 
     if (!spot?.SpotImages) {
         return <div>Loading</div>;
@@ -37,7 +35,14 @@ function SpotDetailsPage() {
 
     const mainImage = spotImages.find((image) => image.preview);
     const secondaryImages = spotImages.filter((image) => !image.preview);
+    if (sessionUser) {
+        areThereReviews = (sessionUser.id !== spot.Owner.id && reviews.length === 0);
+        sessionUserReview = reviews.find((review) => (
+            review.userId === sessionUser.id
+        ));
+    }
 
+    console.log(sessionUserReview, '');
     return (
         <>
             <div>
@@ -70,17 +75,21 @@ function SpotDetailsPage() {
                 <div>
                     <ReviewInfo spot={spot} reviews={reviews} />
                 </div>
-                {areThereReviews && (
-                    <OpenModalButton
-                        buttonText={"Be the first to post a review!"}
-                        modalComponent={<PostReviewToSpot />}
-                    />
-                )}
-                {areThereReviewsTwo && (
-                    <OpenModalButton
-                        buttonText={"Post Your Review"}
-                        modalComponent={<PostReviewToSpot />}
-                    />
+                {sessionUser && sessionUser.id !== spot.Owner.id && !sessionUserReview && (
+                    <>
+                        {areThereReviews && (
+                            <OpenModalButton
+                                buttonText={"Be the first to post a review!"}
+                                modalComponent={<PostReviewToSpot />}
+                            />
+                        )}
+                        {!areThereReviews && (
+                            <OpenModalButton
+                                buttonText={"Post Your Review"}
+                                modalComponent={<PostReviewToSpot />}
+                            />
+                        )}
+                    </>
                 )}
                 <div>
                     <SpotReview reviews={reviews} />
