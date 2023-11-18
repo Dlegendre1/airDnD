@@ -46,8 +46,9 @@ function ProfileButton({ user }) {
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
     return (
-        <>
+        <div className="full-profile-button">
             <button onClick={openMenu}>
+                <i className="fa-solid fa-bars"></i>
                 <i className="fas fa-user-circle" />
             </button>
             {showMenu && (
@@ -59,35 +60,35 @@ function ProfileButton({ user }) {
                             <hr></hr>
                             <li>
                                 <Link to={`/spots/current`} >
-                                    <button>Manage Spots</button>
+                                    <button className="manage-spots-button">Manage Spots</button>
                                 </Link>
                             </li>
                             <hr></hr>
-                            <li>
-                                <button onClick={logout} >Log Out</button>
+                            <li className="logout-button-li">
+                                <button onClick={logout} className="logout-button">Log Out</button>
                             </li>
                         </>
                     ) : (
                         <>
-                            <li>
-                                <OpenModalButton
-                                    buttonText="Log In"
-                                    onButtonClick={closeMenu}
-                                    modalComponent={<LoginFormModal />}
-                                />
-                            </li>
-                            <li>
+                            <li className="signup-button">
                                 <OpenModalButton
                                     buttonText="Sign Up"
                                     onButtonClick={closeMenu}
                                     modalComponent={<SignupFormModal />}
                                 />
                             </li>
+                            <li className="login-button">
+                                <OpenModalButton
+                                    buttonText="Log In"
+                                    onButtonClick={closeMenu}
+                                    modalComponent={<LoginFormModal />}
+                                />
+                            </li>
                         </>
                     )}
                 </ul>
             )}
-        </>
+        </div>
     );
 }
 

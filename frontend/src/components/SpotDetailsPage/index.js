@@ -45,7 +45,6 @@ function SpotDetailsPage() {
         ));
     }
 
-    console.log(sessionUserReview, '');
     return (
         <>
             <div>

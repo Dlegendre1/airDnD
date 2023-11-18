@@ -1,6 +1,6 @@
 import CreateASpot from "../SpotCreationForm";
 import { Link } from "react-router-dom";
-
+import './index.css';
 
 
 function CreateSpotButton() {
@@ -9,7 +9,7 @@ function CreateSpotButton() {
 
     return (
         <Link to={`/spots/new`} >
-            <button>Create a New Spot</button>
+            <button className="create-spot-button">Create a New Spot</button>
         </Link>
     );
 }

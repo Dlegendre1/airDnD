@@ -1,0 +1,10 @@
+.create-spot-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: rgb(22, 104, 132)
+}
+
+a {
+    text-decoration: none;
+}

@@ -31,6 +31,7 @@ function Navigation({ isLoaded, spots }) {
                     </div>
                 </div>
             )}
+            <hr></hr>
         </ul>
     );
 }
