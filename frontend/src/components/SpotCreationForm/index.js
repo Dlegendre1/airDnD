@@ -25,8 +25,12 @@ function CreateASpot() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const imageArr = [url, urlTwo, urlThree, urlFour];
         setErrors({});
-        return dispatch(spotsActions.postNewSpot({ address, city, state, country, lat, lng, name, description, price }, { url: previewUrl, preview: true }))
+        const populatedUrls = imageArr.filter((spotImage) => spotImage).map((spotImage) => {
+            return { url: spotImage, preview: false };
+        });
+        return dispatch(spotsActions.postNewSpot({ address, city, state, country, lat, lng, name, description, price }, [{ url: previewUrl, preview: true }, ...populatedUrls]))
             .then((spot) => {
                 history.push(`/spots/${spot.id}`);
             })
@@ -37,6 +41,7 @@ function CreateASpot() {
                 }
             });
     };
+
 
 
     return (
