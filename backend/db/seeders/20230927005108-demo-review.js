@@ -12,20 +12,32 @@ module.exports = {
     await Review.bulkCreate([
       {
         spotId: 1,
-        userId: 1,
-        review: 'Bad',
+        userId: 2,
+        review: 'I did not like staying here',
         stars: 1
       },
       {
         spotId: 2,
-        userId: 2,
-        review: 'Average',
+        userId: 3,
+        review: 'I thought it was ok',
         stars: 3
       },
       {
         spotId: 3,
-        userId: 3,
-        review: 'Good',
+        userId: 4,
+        review: 'This place was pretty good',
+        stars: 5
+      },
+      {
+        spotId: 4,
+        userId: 5,
+        review: 'Would recommend this place to anyone',
+        stars: 5
+      },
+      {
+        spotId: 5,
+        userId: 1,
+        review: 'This was the nicest place I could ever imagine',
         stars: 5
       }
     ], { validate: true });
@@ -35,7 +47,7 @@ module.exports = {
     options.tableName = 'Review';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      review: { [Op.in]: ['Bad', 'Average', 'Good'] }
+      review: { [Op.in]: ['I did not like staying here', 'I thought it was ok', 'This place was pretty good', 'Would recommend this place to anyone', 'This was the nicest place I could ever imagine'] }
     }, {});
   }
 };
