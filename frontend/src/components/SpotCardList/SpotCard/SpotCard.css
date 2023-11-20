@@ -1,3 +1,7 @@
 .city-state {
     display: flexbox
 }
+
+.spot-preview-image {
+    margin: 10px
+}

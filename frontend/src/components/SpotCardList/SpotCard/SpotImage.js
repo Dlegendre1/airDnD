@@ -1,12 +1,11 @@
+import './SpotCard.css';
+
 function SpotImage({ spot }) {
-
-
-
     //step 8
     return (
-        <>
-            <img src={spot.previewImage} alt="Spot image" width={"500"} height={"500"} />
-        </>
+        <div className="spot-preview-image">
+            <img src={spot.previewImage} alt="Spot image" width={"250"} height={"250"} />
+        </div>
     );
 }
 

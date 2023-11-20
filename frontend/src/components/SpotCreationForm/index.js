@@ -18,6 +18,9 @@ function CreateASpot() {
     const [price, setPrice] = useState(0);
     const [previewUrl, setPreviewUrl] = useState('');
     const [url, setUrl] = useState('');
+    const [urlTwo, setUrlTwo] = useState('');
+    const [urlThree, setUrlThree] = useState('');
+    const [urlFour, setUrlFour] = useState('');
     const [errors, setErrors] = useState({});
 
     const handleSubmit = (e) => {
@@ -189,23 +192,23 @@ function CreateASpot() {
                     <label>
                         <input
                             type='url'
-                            value={url}
+                            value={urlTwo}
                             placeholder="Image URL"
-                            onChange={(e) => setUrl(e.target.value)} />
+                            onChange={(e) => setUrlTwo(e.target.value)} />
                     </label>
                     <label>
                         <input
                             type='url'
-                            value={url}
+                            value={urlThree}
                             placeholder="Image URL"
-                            onChange={(e) => setUrl(e.target.value)} />
+                            onChange={(e) => setUrlThree(e.target.value)} />
                     </label>
                     <label>
                         <input
                             type='url'
-                            value={url}
+                            value={urlFour}
                             placeholder="Image URL"
-                            onChange={(e) => setUrl(e.target.value)} />
+                            onChange={(e) => setUrlFour(e.target.value)} />
                     </label>
                     <hr></hr>
                 </div>
