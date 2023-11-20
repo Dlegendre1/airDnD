@@ -1,0 +1,32 @@
+.entire-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.entire-form>label>input {
+    border: 2px solid black;
+    margin: 3px
+}
+
+.outside-form-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.outside-form-wrapper>div {
+    display: flex;
+    justify-content: center;
+}
+
+.sign-up-button {
+    width: 100%;
+    margin-bottom: 5px;
+    box-shadow: 2px 2px black;
+    background-color: red;
+}
+
+.sign-up-button:disabled {
+    box-shadow: 2px 2px lightgray;
+    background-color: lightgray;
+}

@@ -34,35 +34,39 @@ function LoginFormModal({ user }) {
     const passwordLengthCheck = password.length < 6;
 
     return (
-        <>
+        <div className='login-form-modal'>
             <h1>Log In</h1>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Username or Email
-                    <input
-                        type="text"
-                        value={credential}
-                        onChange={(e) => setCredential(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Password
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
+                <div>
+                    <label>
+                        <input
+                            type="text"
+                            value={credential}
+                            placeholder="Username or Email"
+                            onChange={(e) => setCredential(e.target.value)}
+                            required
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        <input
+                            type="password"
+                            value={password}
+                            placeholder="Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </label>
+                </div>
                 {errors.message && (
                     <p>{errors.message}</p>
                 )}
-                <button type="submit" disabled={usernameLengthCheck || passwordLengthCheck}>Log In</button>
+                <button className="login-button-diff" type="submit" disabled={usernameLengthCheck || passwordLengthCheck}>Log In</button>
             </form>
-            <button type="button" onClick={handleDemoLogin}>Demo User</button>
+            <button className="demo-user-button" type="button" onClick={handleDemoLogin}>Demo User</button>
 
-        </>
+        </div>
     );
 }
 

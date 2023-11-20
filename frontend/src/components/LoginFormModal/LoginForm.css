@@ -1,0 +1,35 @@
+.login-form-modal {
+    display: flex;
+    flex-direction: column;
+    border-radius: 30px;
+}
+
+
+.login-form-modal>h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form-modal>form>div {
+    padding: 5px
+}
+
+.login-button-diff {
+    width: 100%;
+    margin-bottom: 5px;
+    box-shadow: 2px 2px black;
+    background-color: red;
+}
+
+.login-button-diff:disabled {
+    box-shadow: 2px 2px lightgray;
+    background-color: lightgray;
+}
+
+.demo-user-button {
+    background-color: transparent;
+    border: none;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
