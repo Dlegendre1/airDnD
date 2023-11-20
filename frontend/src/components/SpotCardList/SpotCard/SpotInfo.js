@@ -6,7 +6,7 @@ function SpotInfo({ spot }) {
 
     return (
         <>
-            <div className='city-state and avgRating container'>
+            <div className='city-state-and-avgRating-container'>
                 <div className="city-state">
                     {city}, {state}
                 </div>

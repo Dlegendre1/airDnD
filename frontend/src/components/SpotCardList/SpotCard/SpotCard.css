@@ -5,3 +5,27 @@
 .spot-preview-image {
     margin: 10px
 }
+
+.city-state-and-avgRating-container {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5px;
+    justify-content: space-between;
+}
+
+.avgRating {
+    display: flex;
+    justify-content: flex-end;
+
+
+}
+
+.price {
+    margin-left: 5px;
+}
+
+.city-state-and-avgRating-container>.avgRating {
+    display: flex;
+    justify-self: flex-end;
+    align-items: flex-end;
+}

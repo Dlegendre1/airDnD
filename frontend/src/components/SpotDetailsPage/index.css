@@ -1,0 +1,9 @@
+.spot-detail-review-area {
+    display: flex;
+    flex-direction: row;
+}
+
+.spot-detail-review-area>div {
+    display: flex;
+    flex-direction: row;
+}

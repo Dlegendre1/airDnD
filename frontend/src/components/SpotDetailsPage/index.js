@@ -6,6 +6,7 @@ import ReviewInfo from "../ReviewInfo";
 import SpotReview from "../SpotReview";
 import OpenModalButton from "../OpenModalButton";
 import PostReviewToSpot from "../PostReviewToSpot";
+import './index.css';
 
 function SpotDetailsPage() {
     const dispatch = useDispatch();
@@ -47,18 +48,18 @@ function SpotDetailsPage() {
 
     return (
         <>
-            <div>
+            <div className="spot-detail-header-area">
                 <h2>{spot.name}</h2>
                 <p>{spot.city}, {spot.state}, {spot.country}</p>
             </div>
-            <div>
+            <div className="spot-detail-review-area">
                 <div>
-                    <img src={mainImage.url} alt="main image" width={1000} height={1000} />
+                    <img src={mainImage.url} alt="main image" width={300} height={300} />
                 </div>
                 {secondaryImages.length > 0 && (
                     <div>
                         {secondaryImages.map((image) => (
-                            <img src={image.url} />
+                            <img src={image.url} width={150} height={150} />
                         ))}
                     </div>
                 )}
