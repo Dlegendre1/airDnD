@@ -31,7 +31,7 @@ function CreateASpot() {
             return { url: spotImage, preview: false };
         });
         return dispatch(spotsActions.postNewSpot({ address, city, state, country, lat, lng, name, description, price }, [{ url: previewUrl, preview: true }, ...populatedUrls]))
-            .then((spot) => {
+            .then(([spot, ...images]) => {
                 history.push(`/spots/${spot.id}`);
             })
             .catch(async (res) => {

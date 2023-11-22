@@ -94,10 +94,11 @@ export const postNewSpot = (spot, spotImages) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        spotImages.forEach((spotImage) => {
-            addSpotImage(spotImage, data.id);
+        const imagePromises = spotImages.map((spotImage) => {
+            return addSpotImage(spotImage, data.id);
         });
-        return data;
+        // return data;
+        return Promise.all([Promise.resolve(data), ...imagePromises]);
     }
     return response;
 };
@@ -109,8 +110,7 @@ export const addSpotImage = async (spotImage, spotId) => {
             spotImage
         )
     });
-    const data = await response.json();
-    return data;
+    return response.json();
 };
 
 export const getSpotReviewsFromAPI = (spotId) => async (dispatch) => {

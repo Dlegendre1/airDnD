@@ -4,8 +4,8 @@ import SpotCard from "../SpotCardList/SpotCard";
 import { Link } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton";
 import DeleteSpotModal from "../DeleteSpotModal";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { fetchSpotsFromAPI } from "../../store/spots";
 
 function UserSpots() {
     const dispatch = useDispatch();
@@ -13,6 +13,10 @@ function UserSpots() {
     const spot = useSelector(state => state.spots);
 
     const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        dispatch(fetchSpotsFromAPI());
+    }, [dispatch]);
 
     const userSpots = spot.spots.filter((spot) => spot.ownerId === user.id);
 

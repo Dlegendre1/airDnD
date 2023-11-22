@@ -64,18 +64,22 @@ function SpotDetailsPage() {
                     </div>
                 )}
             </div>
-            <div>
-                <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
-                <p>{spot.description}</p>
-            </div>
-            <div>
-                <section>${spot.price} night</section>
-                <ReviewInfo spot={spot} reviews={reviews} />
-                <button onClick={() => alert('Feature coming soon')}>Reserve</button>
-            </div>
+            <div className="under-image-area">
+                <div>
+                    <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
+                    <p>{spot.description}</p>
+                </div>
+                <div className="reserve-button-box">
+                    <div className="reserve-button-price-review-info">
+                        <section><span style={{ fontWeight: 'bold', fontSize: '20px', alignSelf: 'end' }}>${spot.price}</span> night</section>
+                        <ReviewInfo spot={spot} reviews={reviews} />
+                    </div>
+                    <button className='reserve-button' onClick={() => alert('Feature coming soon')}>Reserve</button>
+                </div>
+            </div >
             <hr></hr>
             <div>
-                <div>
+                <div className="review-info-square">
                     <ReviewInfo spot={spot} reviews={reviews} />
                 </div>
                 {sessionUser && sessionUser.id !== spot.Owner.id && !sessionUserReview && (
