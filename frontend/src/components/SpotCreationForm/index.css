@@ -67,3 +67,8 @@
 .lng-area {
     width: 50%
 }
+
+.description-text {
+    width: 100%;
+    height: 200px;
+}

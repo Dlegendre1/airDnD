@@ -1,0 +1,14 @@
+.date-span {
+    font-style: italic;
+    color: rgb(181, 178, 178);
+    margin: 5px
+}
+
+.review-user {
+    margin: 5px
+}
+
+.review-paragraph {
+    margin: 5px;
+    margin-top: 10px;
+}

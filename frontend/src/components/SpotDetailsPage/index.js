@@ -83,20 +83,24 @@ function SpotDetailsPage() {
                     <ReviewInfo spot={spot} reviews={reviews} />
                 </div>
                 {sessionUser && sessionUser.id !== spot.Owner.id && !sessionUserReview && (
-                    <>
+                    <div>
                         {areThereReviews && (
-                            <OpenModalButton
-                                buttonText={"Be the first to post a review!"}
-                                modalComponent={<PostReviewToSpot />}
-                            />
+                            <li className="post-review-buttons">
+                                <OpenModalButton
+                                    buttonText={"Be the first to post a review!"}
+                                    modalComponent={<PostReviewToSpot />}
+                                />
+                            </li>
                         )}
                         {!areThereReviews && (
-                            <OpenModalButton
-                                buttonText={"Post Your Review"}
-                                modalComponent={<PostReviewToSpot />}
-                            />
+                            <li className="post-review-buttons">
+                                <OpenModalButton
+                                    buttonText={"Post Your Review"}
+                                    modalComponent={<PostReviewToSpot />}
+                                />
+                            </li>
                         )}
-                    </>
+                    </div>
                 )}
                 <div>
                     <SpotReview />

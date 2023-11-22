@@ -44,3 +44,14 @@
     margin: 1%;
     font-weight: bold;
 }
+
+.post-review-buttons>button {
+    background-color: gray;
+    color: white;
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+    margin: 10px;
+}
+
+li {
+    list-style-type: none;
+}

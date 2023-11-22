@@ -22,8 +22,7 @@
 
 .create-spot-button {
     display: flex;
-    margin-left: auto;
-    margin-right: 10px;
+    justify-content: space-between;
     background: transparent;
 }
 
@@ -94,4 +93,3 @@ i {
     background: transparent;
     border-radius: 20px;
 }
-

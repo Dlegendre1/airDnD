@@ -135,8 +135,8 @@ function CreateASpot() {
                     <h2>Describe your place to your guests</h2>
                     <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
                 </div>
-                <label className="description-text">
-                    <input
+                <label>
+                    <input className="description-text"
                         type='textarea'
                         value={description}
                         placeholder="Please write at least 30 characters"

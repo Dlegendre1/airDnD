@@ -2,6 +2,6 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 10px;
+    margin: 20px;
     border: 10px;
 }

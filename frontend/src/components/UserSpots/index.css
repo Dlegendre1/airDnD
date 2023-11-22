@@ -1,0 +1,33 @@
+.user-spot-page {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.users-spot-create-spot-button {
+    align-self: start;
+    justify-self: start;
+}
+
+.create-spot-button-li>a>button {
+    background-color: gray;
+    color: white;
+    border: 2px solid black;
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.update-button>a>button {
+    background-color: gray;
+    color: white;
+    border: 2px solid black;
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+    margin: 5px
+}
+
+.update-button>button {
+    background-color: gray;
+    color: white;
+    border: 2px solid black;
+    box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+    margin: 5px
+}
