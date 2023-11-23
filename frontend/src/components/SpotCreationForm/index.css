@@ -84,3 +84,35 @@
     font-family: 'Times New Roman', Times, serif;
 
 }
+
+.spot-form-create-spot-button>button {
+    display: flex;
+    margin: auto;
+    background-color: orangered;
+    color: white;
+    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1)
+}
+
+.url-area label>input {
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 2px solid black;
+    border-radius: 2px;
+}
+
+.spot-creation-form>form label>input {
+    border: 2px solid black;
+}
+
+.spot-creation-form>form label>textarea {
+    border: 2px solid black
+}
+
+.name-of-area-text>input {
+    width: 100%
+}
+
+.dollar-sign-text>input {
+    width: 90%;
+}

@@ -137,7 +137,7 @@ export const addReviewToSpot = (review, stars, spotId) => async (dispatch) => {
 };
 
 export const editExistingSpot = (spot, spotId) => async (dispatch) => {
-    const { address, city, state, country, lat, lng, name, description, price } = spot;
+    const { address, city, state, country, lat, lng, name, description, price, previewImage } = spot;
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: 'PUT',
         body: JSON.stringify({
@@ -149,7 +149,8 @@ export const editExistingSpot = (spot, spotId) => async (dispatch) => {
             lng,
             name,
             description,
-            price
+            price,
+            previewImage
         })
     });
     const data = await response.json();

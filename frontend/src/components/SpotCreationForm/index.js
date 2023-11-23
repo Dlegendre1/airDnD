@@ -162,62 +162,68 @@ function CreateASpot() {
                 <div className="price-for-spot-textarea">
                     <h2>Set a base price for your spot</h2>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-                    <label className="dollar-sign-text">
-                        $
-                        <input
-                            type='text'
-                            value={price}
-                            placeholder="Price per night (USD)"
-                            onChange={(e) => setPrice(e.target.value)}
-                        />
-                    </label>
+                    <div>
+                        <label className="dollar-sign-text">
+                            $
+                            <input
+                                type='text'
+                                value={price}
+                                placeholder="Price per night (USD)"
+                                onChange={(e) => setPrice(e.target.value)}
+                            />
+                        </label>
+                    </div>
                     {errors.price && <p>{errors.price}</p>}
                     <hr></hr>
                 </div>
                 <div>
                     <h2>Liven up your spot with photos</h2>
                     <p>Submit a link to at least one photo to publish your spot.</p>
-                    <label>
-                        <input
-                            type='url'
-                            value={previewUrl}
-                            placeholder="Preview Image URL"
-                            onChange={(e) => setPreviewUrl(e.target.value)}
-                        />
-                        {errors.previewUrl && <p>{errors.previewUrl}</p>}
-                    </label>
-                    <label>
-                        <input
-                            type='url'
-                            value={url}
-                            placeholder="Image URL"
-                            onChange={(e) => setUrl(e.target.value)} />
-                    </label>
-                    {errors.url && <p>{errors.url}</p>}
-                    <label>
-                        <input
-                            type='url'
-                            value={urlTwo}
-                            placeholder="Image URL"
-                            onChange={(e) => setUrlTwo(e.target.value)} />
-                    </label>
-                    <label>
-                        <input
-                            type='url'
-                            value={urlThree}
-                            placeholder="Image URL"
-                            onChange={(e) => setUrlThree(e.target.value)} />
-                    </label>
-                    <label>
-                        <input
-                            type='url'
-                            value={urlFour}
-                            placeholder="Image URL"
-                            onChange={(e) => setUrlFour(e.target.value)} />
-                    </label>
+                    <div className="url-area">
+
+                        <label>
+                            <input
+                                type='url'
+                                value={previewUrl}
+                                placeholder="Preview Image URL"
+                                onChange={(e) => setPreviewUrl(e.target.value)}
+                                required
+                            />
+                            {errors.previewUrl && <p>{errors.previewUrl}</p>}
+                        </label>
+                        <label>
+                            <input
+                                type='url'
+                                value={url}
+                                placeholder="Image URL"
+                                onChange={(e) => setUrl(e.target.value)} />
+                        </label>
+                        {errors.url && <p>{errors.url}</p>}
+                        <label>
+                            <input
+                                type='url'
+                                value={urlTwo}
+                                placeholder="Image URL"
+                                onChange={(e) => setUrlTwo(e.target.value)} />
+                        </label>
+                        <label>
+                            <input
+                                type='url'
+                                value={urlThree}
+                                placeholder="Image URL"
+                                onChange={(e) => setUrlThree(e.target.value)} />
+                        </label>
+                        <label>
+                            <input
+                                type='url'
+                                value={urlFour}
+                                placeholder="Image URL"
+                                onChange={(e) => setUrlFour(e.target.value)} />
+                        </label>
+                    </div>
                     <hr></hr>
                 </div>
-                <div>
+                <div className='spot-form-create-spot-button'>
                     <button type="submit">Create Spot</button>
                 </div>
             </form>

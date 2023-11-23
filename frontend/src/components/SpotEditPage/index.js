@@ -40,14 +40,12 @@ function EditASpot() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        return dispatch(spotsActions.editExistingSpot({ address, city, state, country, lat, lng, name, description, price }, spotId))
+        return dispatch(spotsActions.editExistingSpot({ address, city, state, country, lat, lng, name, description, price, previewImage }, spotId))
             .then((spot) => {
-                console.log(spot, "$$$$$$$$$$$$$$");
                 history.push(`/spots/${spot.id}`);
             });
     };
 
-    console.log(spot, '############');
     return (
         <div className="spot-creation-form">
             <div className="spot-create-form-header">
@@ -172,7 +170,7 @@ function EditASpot() {
                 <div>
                     <h2>Liven up your spot with photos</h2>
                     <p>Submit a link to at least one photo to publish your spot.</p>
-                    <label>
+                    <label className="update-page-url-area">
                         <input
                             type='url'
                             defaultValue={spot.previewImage}
@@ -182,7 +180,7 @@ function EditASpot() {
                     </label>
                     <hr></hr>
                 </div>
-                <div>
+                <div className='spot-form-create-spot-button'>
                     <button type="submit">Update Your Spot</button>
                 </div>
             </form>
