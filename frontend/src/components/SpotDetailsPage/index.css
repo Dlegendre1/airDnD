@@ -55,3 +55,32 @@
 li {
     list-style-type: none;
 }
+
+.review-info-square>div>span {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.review-info-square>div>i {
+    font-size: 30px;
+}
+
+.review-info-square {
+    margin-bottom: 30px;
+    margin-top: 20px
+}
+
+.secondary-images {
+    width: 320px;
+    flex-wrap: wrap;
+}
+
+.secondary-images>img {
+    border: 1px solid black
+}
+
+.main-image>img {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}

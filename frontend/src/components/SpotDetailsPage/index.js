@@ -53,13 +53,13 @@ function SpotDetailsPage() {
                 <p>{spot.city}, {spot.state}, {spot.country}</p>
             </div>
             <div className="spot-detail-review-area">
-                <div>
+                <div className="main-image">
                     <img src={mainImage.url} alt="main image" width={300} height={300} />
                 </div>
                 {secondaryImages.length > 0 && (
-                    <div>
+                    <div className="secondary-images">
                         {secondaryImages.map((image) => (
-                            <img src={image.url} width={150} height={150} />
+                            <img src={image.url} width={149} height={149} />
                         ))}
                     </div>
                 )}

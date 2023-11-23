@@ -12,3 +12,9 @@
     margin: 5px;
     margin-top: 10px;
 }
+
+.delete-button-modal-area>button {
+    background-color: rgb(90, 87, 87);
+    color: white;
+    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
+}

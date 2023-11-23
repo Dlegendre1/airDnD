@@ -89,7 +89,7 @@ function CreateASpot() {
                         </label>
                         {errors.city && <p>{errors.city}</p>}
                     </div>
-                    <span>, </span>
+                    <span className="commas">, </span>
                     <div className="state-area">
                         <label className="state-text">
                             State
@@ -116,7 +116,7 @@ function CreateASpot() {
                         </label>
                         {errors.lat && <p>{errors.lat}</p>}
                     </div>
-                    <span>, </span>
+                    <span className="commas">, </span>
                     <div className="lng-area">
                         <label className="lng-text">
                             Longitude
@@ -136,7 +136,7 @@ function CreateASpot() {
                     <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
                 </div>
                 <label>
-                    <input className="description-text"
+                    <textarea className="description-text"
                         type='textarea'
                         value={description}
                         placeholder="Please write at least 30 characters"

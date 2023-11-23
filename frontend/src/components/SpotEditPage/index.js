@@ -90,7 +90,7 @@ function EditASpot() {
                                 required />
                         </label>
                     </div>
-                    <span>, </span>
+                    <span className="commas">, </span>
                     <div className="state-area">
                         <label className="state-text">
                             State
@@ -115,7 +115,7 @@ function EditASpot() {
                                 required />
                         </label>
                     </div>
-                    <span>, </span>
+                    <span className='commas'>, </span>
                     <div className="lng-area">
                         <label className="lng-text">
                             Longitude
@@ -134,7 +134,7 @@ function EditASpot() {
                     <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
                 </div>
                 <label className="description-text">
-                    <input
+                    <textarea
                         type='textarea'
                         defaultValue={spot.description}
                         value={description}

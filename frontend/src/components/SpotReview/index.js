@@ -18,13 +18,15 @@ function SpotReview() {
                     <span className="date-span">{review.createdAt.slice(5, 7)}/{review.createdAt.slice(0, 4)}</span>
                     <p className="review-paragraph">{review.review}</p>
                     {review.User.id == sessionUserId && (
-                        <OpenModalButton
-                            buttonText="Delete"
-                            modalComponent={
-                                <DeleteReviewModal
-                                    reviewId={review.id}
-                                    spotId={review.spotId} />
-                            } />
+                        <div className="delete-button-modal-area">
+                            <OpenModalButton
+                                buttonText="Delete"
+                                modalComponent={
+                                    <DeleteReviewModal
+                                        reviewId={review.id}
+                                        spotId={review.spotId} />
+                                } />
+                        </div>
                     )}
                 </div>
             ))}

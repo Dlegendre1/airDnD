@@ -19,18 +19,17 @@ function DeleteSpotModal({ spotId }) {
 
     return (
         <>
-            <div>
+            <div className='confirm-review-delete-text'>
                 <h2>Confirm Delete</h2>
                 <p>Are you sure you want to remove this spot from the listings?</p>
             </div>
-            <ul>
-                <li>
-                    <button type="button" onClick={handleSubmit}>Yes (Delete Spot)</button>
-                </li>
-                <li>
-                    <button type="button" onClick={handleCancel}>No (Keep Spot)</button>
-                </li>
-            </ul>
+            <li>
+                <button className="confirm-delete-button" type="button" onClick={handleSubmit}>Yes (Delete Spot)</button>
+            </li>
+            <li>
+                <button className="cancel-delete-button" type="button" onClick={handleCancel}>No (Keep Spot)</button>
+            </li>
+
         </>
     );
 }

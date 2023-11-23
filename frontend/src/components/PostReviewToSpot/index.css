@@ -1,9 +1,15 @@
+.post-review-form {
+  display: flex;
+  flex-direction: column;
+
+}
+
 .rating {
   display: inline-block;
   position: relative;
-  height: 50px;
-  line-height: 50px;
-  font-size: 50px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 25px;
 }
 
 .rating label {
@@ -51,15 +57,63 @@
 }
 
 .rating label:last-child .icon {
-  color: #000;
+  color: lightgray;
 }
 
-.rating:not(:hover) label input:checked ~ .icon,
-.rating:hover label:hover input ~ .icon {
-  color: #09f;
+.rating:not(:hover) label input:checked~.icon,
+.rating:hover label:hover input~.icon {
+  color: black;
 }
 
-.rating label input:focus:not(:checked) ~ .icon:last-child {
+.rating label input:focus:not(:checked)~.icon:last-child {
   color: #000;
-  text-shadow: 0 0 5px #09f;
+  text-shadow: 0 0 5px #000;
+}
+
+.leave-review-area>textarea {
+  width: 100%;
+  height: 150px;
+  margin: 10px;
+  font-family: 'Times New Roman'
+
+}
+
+.full-review-area>label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.leave-review-area {
+  font-weight: bold;
+  margin: 10px;
+}
+
+.submit-review-button:disabled {
+  background-color: white;
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, .2);
+}
+
+.submit-review-button:enabled {
+  background-color: orangered;
+  box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1)
+}
+
+.full-rating-area {
+  display: flex;
+  flex-direction: row;
+
+}
+
+.full-rating-area>span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-rating-area {
+  justify-content: center;
+  margin-bottom: 10px;
 }

@@ -28,20 +28,22 @@ function PostReviewToSpot() {
     const reviewLength = review.length < 10;
     const starsValue = stars;
     return (
-        <>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    How was your stay?
-                    <input
-                        type="textarea"
-                        value={review}
-                        placeholder="Leave your review here..."
-                        onChange={(e) => setReview(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Stars
+        <div >
+            <form className="post-review-form" onSubmit={handleSubmit}>
+                <div className="full-review-area">
+                    <label className="leave-review-area">
+                        How was your stay?
+                        <br></br>
+                        <textarea
+                            type="textarea"
+                            value={review}
+                            placeholder="Leave your review here..."
+                            onChange={(e) => setReview(e.target.value)}
+                            required
+                        />
+                    </label>
+                </div>
+                <label className="full-rating-area">
                     <div className="rating">
                         <label>
                             <input type="radio" name="stars" value="1" onChange={(e) => setStars(e.target.value)} />
@@ -74,10 +76,11 @@ function PostReviewToSpot() {
                             <span class="icon">★</span>
                         </label>
                     </div>
+                    <span>Stars</span>
                 </label>
-                <button type="submit" disabled={reviewLength || !starsValue}>Submit Your Review</button>
+                <button className="submit-review-button" type="submit" disabled={reviewLength || !starsValue}>Submit Your Review</button>
             </form>
-        </>
+        </div>
     );
 };
 
