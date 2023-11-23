@@ -18,7 +18,7 @@ function PostReviewToSpot() {
         e.preventDefault();
         return dispatch(spotActions.addReviewToSpot(review, stars, spotId))
             .then((spot) => {
-                // history.push(`/spots/${spot.spotId}`);
+                history.push(`/spots/${spot.spotId}`);
                 closeModal();
                 dispatch(spotActions.postReviewToSpot());
             });
